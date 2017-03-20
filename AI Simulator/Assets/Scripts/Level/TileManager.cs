@@ -13,8 +13,6 @@ namespace Assets.Scripts.Level {
         private static TileManager _instance;
 
         private readonly Vector3 _worldStart;
-        private readonly Dictionary<string, Sprite> _spriteRegister;
-        private readonly string _spritePath;
 
         /// <summary>
         /// Temporary
@@ -32,21 +30,11 @@ namespace Assets.Scripts.Level {
 
         private TileManager() {
             Tiles = new Tile[10, 10];
-            _spriteRegister = new Dictionary<string, Sprite>();
             _worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
-            _spritePath = "Assets/Sprites/";
         }
 
         public static TileManager GetInstance() {
             return _instance ?? (_instance = new TileManager());
-        }
-
-        public Sprite GetSprite(string name, string extension) {
-            if (!_spriteRegister.ContainsKey(name)) {
-                var obj = AssetDatabase.LoadAssetAtPath(_spritePath + name + "." + extension, typeof(Sprite));
-                _spriteRegister[name] = (Sprite) obj;
-            }
-            return _spriteRegister[name];
         }
 
         private void Register(int row, int column, Tile tile) {
