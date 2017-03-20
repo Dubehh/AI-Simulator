@@ -23,7 +23,8 @@ namespace Assets.Scripts.Level {
         }
 
         public void Rotate(float degrees) {
-            Object.transform.Rotate(Vector3.back, degrees);    
+            Object.transform.rotation = Quaternion.Euler(new Vector3(0, 0, degrees));
+            //Object.transform.Rotate(Vector3.back, degrees);
         }
 
         public Tile(TileType type, bool walkable = false)
