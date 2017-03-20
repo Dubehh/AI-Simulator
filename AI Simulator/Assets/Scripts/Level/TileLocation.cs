@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Assets.Scripts.Level {
-    public class TileLocation {
+    public struct TileLocation {
         public int X { get; set; }
         public int Y { get; set; }
 
