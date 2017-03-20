@@ -8,8 +8,12 @@ namespace Assets.Scripts.Agents {
 
     public abstract class AgentBase {
 
+        private static int _agents;
+        
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
+        public int ID { get; private set; }
+
         public float Speed { get; set; }
         public float Wear { get; set; }
         
@@ -18,6 +22,8 @@ namespace Assets.Scripts.Agents {
 
         protected AgentBase(string filename) {
             _fileName = filename;
+            ID = _agents;
+            _agents++;
         }
 
         public void Initialize() {
@@ -25,6 +31,7 @@ namespace Assets.Scripts.Agents {
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
+            Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);
             Load();
         }
