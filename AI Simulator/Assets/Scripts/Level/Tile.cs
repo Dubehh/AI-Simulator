@@ -22,9 +22,12 @@ namespace Assets.Scripts.Level {
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
         }
 
+        public void Rotate(float degrees) {
+            Object.transform.Rotate(Vector3.back, degrees);    
+        }
+
         public Tile(TileType type, bool walkable = false)
             : this("tile_" + Enum.GetName(typeof(TileType), type).ToLower(), "png", walkable) { }
-
 
     }
 }
