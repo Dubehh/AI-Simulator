@@ -10,6 +10,7 @@ namespace Assets.Scripts.Level {
 
         public GameObject Object { get; private set; }
         public Sprite Sprite { get; private set; }
+        public TileLocation TileLocation { get; set; }
         public bool Walkable { get; set; }
         public List<Tile> Adjacent { get; private set; }
 
@@ -19,11 +20,14 @@ namespace Assets.Scripts.Level {
             Sprite = SpriteManager.GetInstance().GetSprite(spritename, extension);
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
+            Object.AddComponent<BoxCollider2D>();
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
+
         }
 
         public void Rotate(float degrees) {
-            Object.transform.Rotate(Vector3.back, degrees);    
+            Object.transform.rotation = Quaternion.Euler(new Vector3(0, 0, degrees));
+            //Object.transform.Rotate(Vector3.back, degrees);
         }
 
         public Tile(TileType type, bool walkable = false)
