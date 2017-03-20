@@ -14,32 +14,17 @@ namespace Assets.Scripts.Level {
         private static TileManager _instance;
 
         private readonly Vector3 _worldStart;
-        private readonly Dictionary<string, Sprite> _spriteRegister;
-        private readonly string _spritePath;
 
         private TileManager() {
-            _spriteRegister = new Dictionary<string, Sprite>();
+
             Tiles = new Dictionary<TileLocation, Tile>();
             _worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
-            _spritePath = "Assets/Sprites/";
         }
 
         public static TileManager GetInstance() {
             return _instance ?? (_instance = new TileManager());
         }
 
-        public Sprite GetSprite(string name, string extension) {
-            if (!_spriteRegister.ContainsKey(name)) {
-                var obj = AssetDatabase.LoadAssetAtPath(_spritePath + name + "." + extension, typeof(Sprite));
-                _spriteRegister[name] = (Sprite)obj;
-            }
-            return _spriteRegister[name];
-        }
-
-        private void Register(int row, int column, Tile tile) {
-            var location = new TileLocation(column, row);
-            Tiles.Add(location, tile);
-        }
         /// <summary>
         /// Load level from file.
         /// This function reads a .txt file and splits it into rows with columns.
@@ -59,14 +44,12 @@ namespace Assets.Scripts.Level {
                     var tile = new Tile(type);
                     tile.Rotate(float.Parse(tileInfo[1]));
 
-                    if (type == TileType.Road)
-                    {
+                    if (type == TileType.Road) {
                         tile.Walkable = true;
                     }
 
                     var size = tile.Sprite.bounds.size.x;
-                    if (TileSize == 0)
-                    {
+                    if (TileSize == 0) {
                         TileSize = size;
                     }
 
@@ -76,13 +59,12 @@ namespace Assets.Scripts.Level {
                     var location = new TileLocation(x, y);
                     tile.TileLocation = location;
                     Tiles.Add(location, tile);
-                    Debug.Log(location.X + "-"+ location.Y);
+                    Debug.Log(location.X + "-" + location.Y);
                 }
             }
-            WorldSize = new WorldSize(levelGrid[0].Length * TileSize, levelGrid.Length*TileSize);
+            WorldSize = new WorldSize(levelGrid[0].Length * TileSize, levelGrid.Length * TileSize);
         }
-        public bool InBounds(TileLocation tileLocation)
-        {
+        public bool InBounds(TileLocation tileLocation) {
 
             return tileLocation.X >= 0 && tileLocation.Y >= 0
                 && tileLocation.X <= WorldSize.Width && tileLocation.Y < WorldSize.Height;

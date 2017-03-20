@@ -17,7 +17,7 @@ namespace Assets.Scripts.Level {
         public Tile(string spritename, string extension = "png", bool walkable = false) {
             Walkable = walkable;
             Adjacent = new List<Tile>();
-            Sprite = TileManager.GetInstance().GetSprite(spritename, extension);
+            Sprite = SpriteManager.GetInstance().GetSprite(spritename, extension);
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
             Object.AddComponent<BoxCollider2D>();
