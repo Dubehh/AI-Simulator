@@ -16,6 +16,7 @@ namespace Assets.Scripts.Agents.Behaviours {
         }
 
         public override Vector3 Calculate() {
+            return new Vector3(UnityEngine.Random.Range(-.4f, .4f), UnityEngine.Random.Range(-.4f, .4f), 0);
         }
     }
 }
