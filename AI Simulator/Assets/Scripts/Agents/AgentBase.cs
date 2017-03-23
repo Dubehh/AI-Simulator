@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using UnityEngine;
-using Object = System.Object;
 
 namespace Assets.Scripts.Agents {
 
@@ -13,13 +12,16 @@ namespace Assets.Scripts.Agents {
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
         public int ID { get; private set; }
-
-        public float Speed { get; set; }
         public float Wear { get; set; }
-        
         public AgentBehaviourBase Behaviour { get; set; }
-        private readonly string _fileName;
 
+        private readonly string _fileName;
+        private float _speed;
+
+        public float Speed {
+            get { return _speed; }
+            set { this._speed = value * Time.deltaTime; }
+        }
         protected AgentBase(string filename) {
             _fileName = filename;
             ID = _agents;

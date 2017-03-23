@@ -8,15 +8,17 @@ namespace Assets.Scripts.AStar {
    public class Node {
         public TileLocation GridPosition { get; private set; }
 
-        public Tile TileRef { get; private set; }
+        public Tile Tile { get; private set; }
         public Node Parent { get; set; }
         public int G { get; set; }
         public int H { get; set; }
         public int F { get; set; }
+        public bool Closed { get; set; }
 
-        public Node(Tile tileRef) {
-            TileRef = tileRef;
-            GridPosition = tileRef.TileLocation;
+        public Node(Tile tile) {
+            Tile = tile;
+            Closed = false;
+            GridPosition = tile.TileLocation;
         }
 
         public void CalcValues(Node parent, int g, Node goal) {
