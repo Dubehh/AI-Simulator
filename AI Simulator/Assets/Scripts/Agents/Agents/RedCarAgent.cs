@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Scripts.Agents.Behaviours;
+using Assets.Scripts.Agents.Behaviors;
 using UnityEngine;
+using Assets.Scripts.Level;
 
 namespace Assets.Scripts.Agents.Agents {
     public class RedCarAgent : AgentBase {
@@ -14,12 +15,23 @@ namespace Assets.Scripts.Agents.Agents {
         }
 
         public override void Load() {
-            
+            var start = TileManager.GetInstance().Tiles[new TileLocation(5, 4)];
+            start.Object.GetComponent<SpriteRenderer>().color = Color.green;
+
+            var goal = TileManager.GetInstance().Tiles[new TileLocation(2, 3)];
+            goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
+
+
+            var finalPath = AStar.AStar.GetInstance().GetPath(start.TileLocation, goal.TileLocation);
+
+            Behavior = new PathFollowingBehavior(finalPath.ToList(), 0.1f, this);
         }
 
         public override void Update() {
-            if(Behaviour == null) Behaviour = new DrivingBehaviour(this, 30f);
-            Object.transform.position = Behaviour.Calculate();
+            var posRot = Behavior.Calculate();
+            Object.transform.position = posRot.Position.Value;
+            Object.transform.rotation = posRot.Rotation.HasValue ? posRot.Rotation.Value : Object.transform.rotation;
+
         }
     }
 }

@@ -20,14 +20,14 @@ namespace Assets.Scripts.AStar {
             //ClickTile();
 
             if (Input.GetKeyDown(KeyCode.Space)) {
-                _start = TileManager.GetInstance().Tiles[new TileLocation(3, 1)];
+                _start = TileManager.GetInstance().Tiles[new TileLocation(5, 4)];
                 _start.Object.GetComponent<SpriteRenderer>().color = Color.green;
 
-                _goal = TileManager.GetInstance().Tiles[new TileLocation(2, 5)];
+                _goal = TileManager.GetInstance().Tiles[new TileLocation(2, 3)];
                 _goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
 
 
-                AStar.GetPath(_start.TileLocation, _goal.TileLocation);
+                AStar.GetInstance().GetPath(_start.TileLocation, _goal.TileLocation);
             }
         }
 

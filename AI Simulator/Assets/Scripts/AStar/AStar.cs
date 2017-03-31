@@ -6,20 +6,20 @@ using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.AStar {
-    class AStar {
-        private static Dictionary<TileLocation, Node> _nodes;
+    public class AStar
+    {
+        private static AStar _instance;
+       
+        private Dictionary<TileLocation, Node> _nodes;
 
-        private static void CreateNodes() {
+        private void CreateNodes() {
             _nodes = new Dictionary<TileLocation, Node>();
             foreach (var tile in TileManager.GetInstance().Tiles.Values) {
                 _nodes.Add(tile.TileLocation, new Node(tile));
             }
         }
 
-        public static void GetPath(TileLocation start, TileLocation goal) {
-            if (_nodes == null) {
-                CreateNodes();
-            }
+        public Stack<Node> GetPath(TileLocation start, TileLocation goal) {
             var currentNode = _nodes[start];
 
             var openList = new HashSet<Node>();
@@ -70,8 +70,18 @@ namespace Assets.Scripts.AStar {
                     break;
                 }
             }
+            
             GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList, closedList, finalPath);
+            return finalPath;
 
+        }
+        public static AStar GetInstance() {
+            return _instance ?? (_instance = new AStar());
+        }
+
+        public AStar()
+        {
+            CreateNodes();
         }
     }
 }

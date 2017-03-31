@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.Agents.Agents;
+using Assets.Scripts.Agents.Behaviors;
+using Assets.Scripts.Level;
+using Assets.Scripts.AStar;
+using UnityEngine;
 
 namespace Assets.Scripts.Agents {
     public class AgentManager {
@@ -21,6 +25,8 @@ namespace Assets.Scripts.Agents {
 
         public void Load() {
             var agent = new RedCarAgent();
+
+            
             agent.Initialize();
         }
 
