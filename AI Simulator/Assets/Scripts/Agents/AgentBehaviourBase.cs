@@ -5,14 +5,14 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents {
-    public abstract class AgentBehaviourBase {
+    public abstract class AgentBehaviorBase {
 
         protected AgentBase Agent { get; private set; }
 
-        protected AgentBehaviourBase(AgentBase agent) {
+        protected AgentBehaviorBase(AgentBase agent) {
             Agent = agent;
         }
 
-        public abstract Vector3 Calculate();
+        public abstract AgentTransformation Calculate();
     }
 }

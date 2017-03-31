@@ -12,17 +12,15 @@ namespace Assets.Scripts.Level {
         public Sprite Sprite { get; private set; }
         public TileLocation TileLocation { get; set; }
         public bool Walkable { get; set; }
-        public List<Tile> Adjacent { get; private set; }
+        public TileType Type { get; set; }
 
         public Tile(string spritename, string extension = "png", bool walkable = false) {
             Walkable = walkable;
-            Adjacent = new List<Tile>();
             Sprite = SpriteManager.GetInstance().GetSprite(spritename, extension);
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
             Object.AddComponent<BoxCollider2D>();
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
-
         }
 
         public void Rotate(float degrees) {

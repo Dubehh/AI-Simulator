@@ -47,6 +47,7 @@ namespace Assets.Scripts.Level {
                     var tile = new Tile(type);
                     OrderedTiles[type].Add(tile);
                     tile.Rotate(float.Parse(tileInfo[1]));
+                    tile.Type = type;
                     if (type != TileType.Grass)
                         tile.Walkable = true;
                     var size = tile.Sprite.bounds.size.x;

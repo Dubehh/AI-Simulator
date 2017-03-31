@@ -13,11 +13,9 @@ namespace Assets.Scripts.AStar {
         public int G { get; set; }
         public int H { get; set; }
         public int F { get; set; }
-        public bool Closed { get; set; }
 
         public Node(Tile tile) {
             Tile = tile;
-            Closed = false;
             GridPosition = tile.TileLocation;
         }
 
