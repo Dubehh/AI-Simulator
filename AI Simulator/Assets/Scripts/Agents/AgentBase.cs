@@ -29,10 +29,15 @@ namespace Assets.Scripts.Agents {
         }
 
         public void Initialize() {
+            Initialize(new Vector3(0, 0, 0));
+        }
+
+        public void Initialize(Vector3 location) {
             Sprite = SpriteManager.GetInstance().GetSprite(_fileName, "png");
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
+            Object.transform.position = location;
             Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);
             Load();

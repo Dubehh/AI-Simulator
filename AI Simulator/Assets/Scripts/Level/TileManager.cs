@@ -13,8 +13,8 @@ namespace Assets.Scripts.Level {
         public Dictionary<TileType, List<Tile>> OrderedTiles { get; private set; }
         public float TileSize { get; private set; }
         public WorldSize WorldSize { get; private set; }
-        private static TileManager _instance;
 
+        private static TileManager _instance;
         private readonly Vector3 _worldStart;
 
         private TileManager() {
@@ -63,8 +63,8 @@ namespace Assets.Scripts.Level {
             }
             WorldSize = new WorldSize(levelGrid[0].Length * TileSize, levelGrid.Length * TileSize);
         }
-        public bool InBounds(TileLocation tileLocation) {
 
+        public bool InBounds(TileLocation tileLocation) {
             return tileLocation.X >= 0 && tileLocation.Y >= 0
                 && tileLocation.X <= WorldSize.Width && tileLocation.Y < WorldSize.Height;
         }

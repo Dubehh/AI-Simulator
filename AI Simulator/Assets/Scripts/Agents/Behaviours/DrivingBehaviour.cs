@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.Agents.Behaviours {
     public class DrivingBehaviour : AgentBehaviourBase {
-
+         
         private float _speed;
 
         public DrivingBehaviour(AgentBase agent, float speed)
             : base(agent) {
-            this._speed = speed;
+            this._speed = speed;   
 
         }
 
