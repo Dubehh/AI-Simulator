@@ -1,28 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.AStar {
-   public class AStar {
+    public static class AStar {
+        public static Stack<Node> GetPath(TileLocation start, TileLocation goal) {
 
-        private static Dictionary<TileLocation, Node> _nodes;
-
-        private static void CreateNodes() {
-            _nodes = new Dictionary<TileLocation, Node>();
+            var _nodes = new Dictionary<TileLocation, Node>();
             foreach (var tile in TileManager.GetInstance().Tiles.Values) {
                 _nodes.Add(tile.TileLocation, new Node(tile));
             }
-        }
-
-        public static void GetPath(TileLocation start, TileLocation goal) {
-            if (_nodes == null) {
-                CreateNodes();
-            }
             var currentNode = _nodes[start];
             var openList = new HashSet<Node>();
+            var closedList = new HashSet<Node>();
             var finalPath = new Stack<Node>();
 
             openList.Add(currentNode);
@@ -33,8 +24,10 @@ namespace Assets.Scripts.AStar {
                         // Disallow diagonally walking
                         if (!(x == -1 && (y == -1 || y == 1) || x == 1 && (y == -1 || y == 1))) {
                             var neighborPos = new TileLocation(currentNode.GridPosition.X - x, currentNode.GridPosition.Y - y);
-                            if (TileManager.GetInstance().InBounds(neighborPos) && TileManager.GetInstance().Tiles[neighborPos].Walkable &&
-                                neighborPos != currentNode.GridPosition) {
+                            if (TileManager.GetInstance().InBounds(neighborPos)
+                                && TileManager.GetInstance().Tiles[neighborPos].Type != TileType.Finish
+                                && TileManager.GetInstance().Tiles[neighborPos].Walkable
+                                && neighborPos != currentNode.GridPosition) {
                                 var gCost = 1;
                                 var neighbor = _nodes[neighborPos];
                                 if (openList.Contains(neighbor)) {
@@ -42,7 +35,7 @@ namespace Assets.Scripts.AStar {
                                         neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                     }
                                 }
-                                else if (!neighbor.Closed) {
+                                else if (!closedList.Contains(neighbor)) {
                                     openList.Add(neighbor);
                                     neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                 }
@@ -51,7 +44,7 @@ namespace Assets.Scripts.AStar {
                     }
                 }
                 openList.Remove(currentNode);
-                currentNode.Closed = true;
+                closedList.Add(currentNode);
 
                 if (openList.Count > 0) {
                     currentNode = openList.OrderBy(x => x.F).First();
@@ -65,7 +58,9 @@ namespace Assets.Scripts.AStar {
                     break;
                 }
             }
-            GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList, finalPath);
+
+            GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(finalPath);
+            return finalPath;
 
         }
     }

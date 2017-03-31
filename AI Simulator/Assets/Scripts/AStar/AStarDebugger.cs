@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Level;
 using UnityEngine;
 
@@ -20,10 +17,10 @@ namespace Assets.Scripts.AStar {
             //ClickTile();
 
             if (Input.GetKeyDown(KeyCode.Space)) {
-                _start = TileManager.GetInstance().Tiles[new TileLocation(3, 1)];
+                _start = TileManager.GetInstance().Tiles[new TileLocation(5, 4)];
                 _start.Object.GetComponent<SpriteRenderer>().color = Color.green;
 
-                _goal = TileManager.GetInstance().Tiles[new TileLocation(2, 5)];
+                _goal = TileManager.GetInstance().Tiles[new TileLocation(2, 3)];
                 _goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
 
 
@@ -51,7 +48,7 @@ namespace Assets.Scripts.AStar {
             }
         }
 
-        public void DebugPath(HashSet<Node> openList, Stack<Node> path) {
+        public void DebugPath(Stack<Node> path) {
             foreach (var node in path) {
                 if (node.Tile != _start && node.Tile != _goal) {
                     node.Tile.Object.GetComponent<SpriteRenderer>().color = Color.green;

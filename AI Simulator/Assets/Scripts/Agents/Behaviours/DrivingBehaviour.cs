@@ -5,18 +5,19 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents.Behaviours {
-    public class DrivingBehaviour : AgentBehaviourBase {
+    public class DrivingBehavior : AgentBehaviorBase {
          
         private float _speed;
 
-        public DrivingBehaviour(AgentBase agent, float speed)
+        public DrivingBehavior(AgentBase agent, float speed)
             : base(agent) {
             this._speed = speed;   
 
         }
 
-        public override Vector3 Calculate() {
-            return new Vector3(3, 3, 0);
+        public override AgentTransformation Calculate() {
+            return new AgentTransformation();
+            //return new Vector3(3, 3, 0);
         }
     }
 }

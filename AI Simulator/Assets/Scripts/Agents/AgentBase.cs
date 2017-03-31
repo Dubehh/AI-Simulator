@@ -13,8 +13,7 @@ namespace Assets.Scripts.Agents {
         public GameObject Object { get; private set; }
         public int ID { get; private set; }
         public float Wear { get; set; }
-        public AgentBehaviourBase Behaviour { get; set; }
-
+        public AgentBehaviorBase Behavior { get; set; }
         private readonly string _fileName;
         private float _speed;
 
@@ -37,6 +36,8 @@ namespace Assets.Scripts.Agents {
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
+            Object.AddComponent<Rigidbody2D>();
+            Object.GetComponent<Rigidbody2D>().gravityScale = 0;
             Object.transform.position = location;
             Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);

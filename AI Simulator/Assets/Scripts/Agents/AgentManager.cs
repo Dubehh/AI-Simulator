@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Agents.Agents;
 using Assets.Scripts.Level;
-using UnityEngine;
 
 namespace Assets.Scripts.Agents {
     public class AgentManager {
@@ -23,9 +19,9 @@ namespace Assets.Scripts.Agents {
 
         public void Load() {
             var agents = new AgentBase[] {new RedCarAgent(), new RedCarAgent() };
-            List<Tile> startingTiles = TileManager.GetInstance().OrderedTiles[TileType.Finish];
-            Debug.Log(startingTiles.Count);
-            for(var i = 0; i < startingTiles.Count; i++)
+            var startingTiles = TileManager.GetInstance().OrderedTiles[TileType.Finish];
+
+            for (var i = 0; i < startingTiles.Count; i++)
                 agents[i].Initialize(startingTiles[i].Object.transform.position);
         }
 
