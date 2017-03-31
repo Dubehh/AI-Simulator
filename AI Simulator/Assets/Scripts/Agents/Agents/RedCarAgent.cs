@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.Agents.Behaviours;
+using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents.Agents {
@@ -18,8 +19,7 @@ namespace Assets.Scripts.Agents.Agents {
         }
 
         public override void Update() {
-            if(Behaviour == null) Behaviour = new DrivingBehaviour(this, 30f);
-            Object.transform.position = Behaviour.Calculate();
+            
         }
     }
 }

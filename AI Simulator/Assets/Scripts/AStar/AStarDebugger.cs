@@ -51,10 +51,10 @@ namespace Assets.Scripts.AStar {
             }
         }
 
-        public void DebugPath(HashSet<Node> openList, HashSet<Node> closedList, Stack<Node> path) {
+        public void DebugPath(HashSet<Node> openList, Stack<Node> path) {
             foreach (var node in path) {
-                if (node.TileRef != _start && node.TileRef != _goal) {
-                    node.TileRef.Object.GetComponent<SpriteRenderer>().color = Color.green;
+                if (node.Tile != _start && node.Tile != _goal) {
+                    node.Tile.Object.GetComponent<SpriteRenderer>().color = Color.green;
                 }
             }
         }

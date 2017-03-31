@@ -8,15 +8,19 @@ using UnityEngine;
 
 namespace Assets.Scripts.Level {
     public class TileManager {
+
         public Dictionary<TileLocation, Tile> Tiles { get; private set; }
+        public Dictionary<TileType, List<Tile>> OrderedTiles { get; private set; }
         public float TileSize { get; private set; }
         public WorldSize WorldSize { get; private set; }
-        private static TileManager _instance;
 
+        private static TileManager _instance;
         private readonly Vector3 _worldStart;
 
         private TileManager() {
-
+            OrderedTiles = new Dictionary<TileType, List<Tile>>();
+            foreach (TileType value in Enum.GetValues(typeof(TileType)))
+                OrderedTiles[value] = new List<Tile>();
             Tiles = new Dictionary<TileLocation, Tile>();
             _worldStart = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height));
         }
@@ -40,19 +44,14 @@ namespace Assets.Scripts.Level {
                     // Split the information, so we have the identifier of the tile type and the degrees of rotation
                     var tileInfo = levelGrid[y][x].Split(':');
                     var type = (TileType)int.Parse(tileInfo[0]);
-
                     var tile = new Tile(type);
+                    OrderedTiles[type].Add(tile);
                     tile.Rotate(float.Parse(tileInfo[1]));
-
-                    if (type == TileType.Road) {
+                    if (type != TileType.Grass)
                         tile.Walkable = true;
-                    }
-
                     var size = tile.Sprite.bounds.size.x;
-                    if (TileSize == 0) {
+                    if (TileSize <= 0) 
                         TileSize = size;
-                    }
-
                     tile.Object.transform.position = new Vector3(_worldStart.x + size * x, _worldStart.y - size * y, 0);
 
                     // Add tile to the dictionary so we can look it up with the correct location
@@ -64,8 +63,8 @@ namespace Assets.Scripts.Level {
             }
             WorldSize = new WorldSize(levelGrid[0].Length * TileSize, levelGrid.Length * TileSize);
         }
-        public bool InBounds(TileLocation tileLocation) {
 
+        public bool InBounds(TileLocation tileLocation) {
             return tileLocation.X >= 0 && tileLocation.Y >= 0
                 && tileLocation.X <= WorldSize.Width && tileLocation.Y < WorldSize.Height;
         }

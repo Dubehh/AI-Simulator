@@ -6,7 +6,8 @@ using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.AStar {
-    class AStar {
+   public class AStar {
+
         private static Dictionary<TileLocation, Node> _nodes;
 
         private static void CreateNodes() {
@@ -21,10 +22,7 @@ namespace Assets.Scripts.AStar {
                 CreateNodes();
             }
             var currentNode = _nodes[start];
-
             var openList = new HashSet<Node>();
-            var closedList = new HashSet<Node>();
-
             var finalPath = new Stack<Node>();
 
             openList.Add(currentNode);
@@ -38,16 +36,13 @@ namespace Assets.Scripts.AStar {
                             if (TileManager.GetInstance().InBounds(neighborPos) && TileManager.GetInstance().Tiles[neighborPos].Walkable &&
                                 neighborPos != currentNode.GridPosition) {
                                 var gCost = 1;
-
                                 var neighbor = _nodes[neighborPos];
-
                                 if (openList.Contains(neighbor)) {
                                     if (currentNode.G + gCost < neighbor.G) {
                                         neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                     }
                                 }
-
-                                else if (!closedList.Contains(neighbor)) {
+                                else if (!neighbor.Closed) {
                                     openList.Add(neighbor);
                                     neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                 }
@@ -56,7 +51,7 @@ namespace Assets.Scripts.AStar {
                     }
                 }
                 openList.Remove(currentNode);
-                closedList.Add(currentNode);
+                currentNode.Closed = true;
 
                 if (openList.Count > 0) {
                     currentNode = openList.OrderBy(x => x.F).First();
@@ -70,7 +65,7 @@ namespace Assets.Scripts.AStar {
                     break;
                 }
             }
-            GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList, closedList, finalPath);
+            GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList, finalPath);
 
         }
     }
