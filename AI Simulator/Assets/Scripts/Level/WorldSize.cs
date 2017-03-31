@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 
 namespace Assets.Scripts.Level {
-    public struct WorldSize
-    {
-        public float Width { get;  private set; }
+    public struct WorldSize {
+
+        public float Width { get; private set; }
         public float Height { get; private set; }
 
-        public WorldSize(float width, float height)
-        {
+        public WorldSize(float width, float height) : this() {
             Width = width;
             Height = height;
         }

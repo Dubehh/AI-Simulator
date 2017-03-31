@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Assets.Scripts.Agents.Behaviors;
-using UnityEngine;
 using Assets.Scripts.Level;
+using UnityEngine;
 
 namespace Assets.Scripts.Agents.Agents {
     public class RedCarAgent : AgentBase {
 
         public RedCarAgent() : base("car_red") {
-            Speed = 5f;
+            Speed = 1f;
             Wear = 2f;
         }
 
@@ -22,7 +19,7 @@ namespace Assets.Scripts.Agents.Agents {
             goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
 
 
-            var finalPath = AStar.AStar.GetInstance().GetPath(start.TileLocation, goal.TileLocation);
+            var finalPath = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
 
             Behavior = new PathFollowingBehavior(finalPath.ToList(), 0.1f, this);
         }
@@ -31,7 +28,6 @@ namespace Assets.Scripts.Agents.Agents {
             var posRot = Behavior.Calculate();
             Object.transform.position = posRot.Position.Value;
             Object.transform.rotation = posRot.Rotation.HasValue ? posRot.Rotation.Value : Object.transform.rotation;
-
         }
     }
 }

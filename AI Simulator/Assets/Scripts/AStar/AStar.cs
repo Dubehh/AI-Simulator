@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.AStar {
-    public class AStar
-    {
-        private static AStar _instance;
-       
-        private Dictionary<TileLocation, Node> _nodes;
+    public static class AStar {
+        public static Stack<Node> GetPath(TileLocation start, TileLocation goal) {
 
-        private void CreateNodes() {
-            _nodes = new Dictionary<TileLocation, Node>();
+            var _nodes = new Dictionary<TileLocation, Node>();
             foreach (var tile in TileManager.GetInstance().Tiles.Values) {
                 _nodes.Add(tile.TileLocation, new Node(tile));
             }
-        }
-
-        public Stack<Node> GetPath(TileLocation start, TileLocation goal) {
             var currentNode = _nodes[start];
-
             var openList = new HashSet<Node>();
             var closedList = new HashSet<Node>();
-
             var finalPath = new Stack<Node>();
 
             openList.Add(currentNode);
@@ -35,18 +24,17 @@ namespace Assets.Scripts.AStar {
                         // Disallow diagonally walking
                         if (!(x == -1 && (y == -1 || y == 1) || x == 1 && (y == -1 || y == 1))) {
                             var neighborPos = new TileLocation(currentNode.GridPosition.X - x, currentNode.GridPosition.Y - y);
-                            if (TileManager.GetInstance().InBounds(neighborPos) && TileManager.GetInstance().Tiles[neighborPos].Walkable &&
-                                neighborPos != currentNode.GridPosition) {
+                            if (TileManager.GetInstance().InBounds(neighborPos)
+                                && TileManager.GetInstance().Tiles[neighborPos].Type != TileType.Finish
+                                && TileManager.GetInstance().Tiles[neighborPos].Walkable
+                                && neighborPos != currentNode.GridPosition) {
                                 var gCost = 1;
-
                                 var neighbor = _nodes[neighborPos];
-
                                 if (openList.Contains(neighbor)) {
                                     if (currentNode.G + gCost < neighbor.G) {
                                         neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                     }
                                 }
-
                                 else if (!closedList.Contains(neighbor)) {
                                     openList.Add(neighbor);
                                     neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
@@ -70,18 +58,10 @@ namespace Assets.Scripts.AStar {
                     break;
                 }
             }
-            
-            GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(openList, closedList, finalPath);
+
+            GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(finalPath);
             return finalPath;
 
-        }
-        public static AStar GetInstance() {
-            return _instance ?? (_instance = new AStar());
-        }
-
-        public AStar()
-        {
-            CreateNodes();
         }
     }
 }

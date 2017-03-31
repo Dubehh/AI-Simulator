@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assets.Scripts.Level;
 using UnityEngine;
 
@@ -27,7 +24,7 @@ namespace Assets.Scripts.AStar {
                 _goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
 
 
-                AStar.GetInstance().GetPath(_start.TileLocation, _goal.TileLocation);
+                AStar.GetPath(_start.TileLocation, _goal.TileLocation);
             }
         }
 
@@ -51,10 +48,10 @@ namespace Assets.Scripts.AStar {
             }
         }
 
-        public void DebugPath(HashSet<Node> openList, HashSet<Node> closedList, Stack<Node> path) {
+        public void DebugPath(Stack<Node> path) {
             foreach (var node in path) {
-                if (node.TileRef != _start && node.TileRef != _goal) {
-                    node.TileRef.Object.GetComponent<SpriteRenderer>().color = Color.green;
+                if (node.Tile != _start && node.Tile != _goal) {
+                    node.Tile.Object.GetComponent<SpriteRenderer>().color = Color.green;
                 }
             }
         }

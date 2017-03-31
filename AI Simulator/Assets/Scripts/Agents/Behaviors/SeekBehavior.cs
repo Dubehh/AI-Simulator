@@ -10,7 +10,7 @@ namespace Assets.Scripts.Agents.Behaviors {
         }
 
         public override AgentTransformation Calculate() {
-            var position = Vector3.MoveTowards(Agent.Object.transform.position, _seekTarget, Agent.Speed * Time.deltaTime);
+            var position = Vector3.MoveTowards(Agent.Object.transform.position, _seekTarget, Agent.Speed);
             return new AgentTransformation(position);
         }
 
