@@ -7,7 +7,7 @@ using UnityEngine;
 public class SimulatorCore : MonoBehaviour {
 
     void Awake() {
-        Time.timeScale = 0.1f;
+        //Time.timeScale = 0.1f;
         TileManager.GetInstance().Load();
     }
     

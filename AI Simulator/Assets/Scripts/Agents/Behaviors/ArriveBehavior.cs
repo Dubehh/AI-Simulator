@@ -27,7 +27,7 @@ namespace Assets.Scripts.Agents.Behaviors {
 
             var speed = distance / (_deceleration.GetHashCode() * deceleration);
 
-            speed = Min(speed, Agent.Speed);
+            speed = Min(speed, Agent.Property.Speed);
 
             var desiredVelocity = toTarget * (speed / distance);
 

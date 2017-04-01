@@ -17,7 +17,6 @@ namespace Assets.Scripts.Agents.Behaviours {
 
         public override AgentTransformation Calculate() {
             return new AgentTransformation();
-            //return new Vector3(3, 3, 0);
         }
     }
 }

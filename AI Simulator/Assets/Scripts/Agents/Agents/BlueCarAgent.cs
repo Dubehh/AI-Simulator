@@ -1,12 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Assets.Scripts.Agents.Behaviors;
 using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents.Agents {
-    public class RedCarAgent : AgentBase {
+    public class BlueCarAgent : AgentBase {
 
-        public RedCarAgent() : base("car_red", 1f, 2f) {}
+        public BlueCarAgent() : base("car_blue", 1.4f, 3f) {
+        }
 
         public override void Load() {
             var start = TileManager.GetInstance().Tiles[new TileLocation(5, 4)];
