@@ -59,7 +59,6 @@ namespace Assets.Scripts.Level {
                     var location = new TileLocation(x, y);
                     tile.TileLocation = location;
                     Tiles.Add(location, tile);
-                    Debug.Log(location.X + "-" + location.Y);
                 }
             }
             WorldSize = new WorldSize(levelGrid[0].Length * TileSize, levelGrid.Length * TileSize);

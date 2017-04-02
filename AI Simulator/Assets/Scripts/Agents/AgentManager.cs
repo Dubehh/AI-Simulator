@@ -22,7 +22,7 @@ namespace Assets.Scripts.Agents {
             var startingTiles = TileManager.GetInstance().OrderedTiles[TileType.Finish];
 
             for (var i = 0; i < startingTiles.Count; i++)
-                agents[i].Initialize(startingTiles[i].Object.transform.position);
+                agents[i].Initialize(startingTiles[i].TileLocation);
         }
 
         public void Update() {

@@ -25,7 +25,7 @@ namespace Assets.Scripts.Agents.Behaviors {
 
             const float deceleration = 0.3f;
 
-            var speed = distance / (_deceleration.GetHashCode() * deceleration);
+            float speed = distance / (_deceleration.GetHashCode() * deceleration);
 
             speed = Min(speed, Agent.Speed);
 

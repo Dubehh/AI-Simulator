@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.AStar;
+using Assets.Scripts.Level;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -11,6 +13,8 @@ namespace Assets.Scripts.Agents {
         
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
+        public Stack<Node> Path { get; set; }
+        public TileLocation TileLocation { get; set; }
         public int ID { get; private set; }
         public float Wear { get; set; }
         public AgentBehaviorBase Behavior { get; set; }
@@ -28,17 +32,18 @@ namespace Assets.Scripts.Agents {
         }
 
         public void Initialize() {
-            Initialize(new Vector3(0, 0, 0));
+            Initialize(new TileLocation(3,6));
         }
 
-        public void Initialize(Vector3 location) {
+        public void Initialize(TileLocation location) {
             Sprite = SpriteManager.GetInstance().GetSprite(_fileName, "png");
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
             Object.AddComponent<Rigidbody2D>();
             Object.GetComponent<Rigidbody2D>().gravityScale = 0;
-            Object.transform.position = location;
+            Object.transform.position = TileManager.GetInstance().Tiles[location].Object.transform.position;
+            TileLocation = location;
             Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);
             Load();
