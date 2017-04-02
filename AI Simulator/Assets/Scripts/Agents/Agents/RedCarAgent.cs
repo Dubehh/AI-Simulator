@@ -18,15 +18,14 @@ namespace Assets.Scripts.Agents.Agents {
             var goal = TileManager.GetInstance().Tiles[new TileLocation(2, 3)];
             goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
 
+            Path = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
 
-            var finalPath = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
-
-            Behavior = new PathFollowingBehavior(finalPath.ToList(), 0.1f, this);
+            Behavior = new PathFollowingBehavior(0.5f, this);
         }
 
         public override void Update() {
             var posRot = Behavior.Calculate();
-            Object.transform.position = posRot.Position.Value;
+            Object.transform.position = posRot.Position.HasValue ? posRot.Position.Value : Object.transform.position;
             Object.transform.rotation = posRot.Rotation.HasValue ? posRot.Rotation.Value : Object.transform.rotation;
         }
     }

@@ -30,7 +30,6 @@ namespace Assets.Scripts.AStar {
 
         private void ClickTile() {
             if (Input.GetMouseButtonDown(1)) {
-                Debug.Log("TEST");
                 var hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
                 if (hit.collider != null) {
                     var tmp = hit.transform.gameObject;
