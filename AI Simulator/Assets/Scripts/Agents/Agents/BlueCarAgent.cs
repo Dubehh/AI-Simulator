@@ -9,7 +9,9 @@ using UnityEngine;
 namespace Assets.Scripts.Agents.Agents {
     public class BlueCarAgent : AgentBase {
 
-        public BlueCarAgent() : base("car_blue", 1.4f, 3f) {
+        public BlueCarAgent() : base("car_blue") {
+            Speed = 1.2f;
+            Wear = 3f;
         }
 
         public override void Load() {

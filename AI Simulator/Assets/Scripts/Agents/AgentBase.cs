@@ -12,9 +12,11 @@ namespace Assets.Scripts.Agents {
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
         public int ID { get; private set; }
+        public float Wear { get; set; }
 
         public AgentBehaviorBase Behavior { get; set; }
-        public AgentProperty Property { get; set; }
+
+        private float _speed;
         private readonly string _fileName;
         
         protected AgentBase(string filename) {
@@ -23,8 +25,9 @@ namespace Assets.Scripts.Agents {
             _agents++;
         }
 
-        protected AgentBase(string filename, float speed, float wear) : this(filename) {
-            Property = new AgentProperty(wear, speed);
+        public float Speed {
+            get { return _speed * Time.deltaTime; }
+            set { _speed = value; }
         }
 
         public void Initialize() {

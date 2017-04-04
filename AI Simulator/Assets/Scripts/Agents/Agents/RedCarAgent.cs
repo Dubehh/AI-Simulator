@@ -6,7 +6,10 @@ using UnityEngine;
 namespace Assets.Scripts.Agents.Agents {
     public class RedCarAgent : AgentBase {
 
-        public RedCarAgent() : base("car_red", 1f, 2f) {}
+        public RedCarAgent() : base("car_red") {
+            Speed = 1f;
+            Wear = 2f;
+        }
 
         public override void Load() {
             var start = TileManager.GetInstance().Tiles[new TileLocation(5, 4)];
@@ -14,7 +17,6 @@ namespace Assets.Scripts.Agents.Agents {
 
             var goal = TileManager.GetInstance().Tiles[new TileLocation(2, 3)];
             goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
-
 
             var finalPath = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
 
@@ -24,7 +26,7 @@ namespace Assets.Scripts.Agents.Agents {
         public override void Update() {
             var posRot = Behavior.Calculate();
             Object.transform.position = posRot.Position.Value;
-            Object.transform.rotation = posRot.Rotation.HasValue ? posRot.Rotation.Value : Object.transform.rotation;
+            Object.transform.rotation = posRot.Rotation ?? Object.transform.rotation;
         }
     }
 }
