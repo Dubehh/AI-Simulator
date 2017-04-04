@@ -41,12 +41,17 @@ namespace Assets.Scripts.Agents {
         public void Initialize(TileLocation loc) {
             Sprite = SpriteManager.GetInstance().GetSprite(_fileName, "png");
             Object = new GameObject();
+            /* Setup components */
             SpriteRenderer renderer = Object.AddComponent<SpriteRenderer>();
             Rigidbody2D body = Object.AddComponent<Rigidbody2D>();
+            BoxCollider2D collider = Object.AddComponent<BoxCollider2D>();
+
+            /* Assign default values */
             body.gravityScale = 0;
             renderer.sprite = Sprite;
             Object.transform.parent = AgentManager.GetInstance().Parent.transform;
-            Object.transform.position = new Vector3(loc.X, loc.Y);
+            TileLocation = loc;
+            Object.transform.position = TileManager.GetInstance().Tiles[loc].Object.transform.position;
             Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);
             Load();

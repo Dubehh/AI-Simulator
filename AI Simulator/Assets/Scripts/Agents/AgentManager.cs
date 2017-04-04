@@ -25,6 +25,7 @@ namespace Assets.Scripts.Agents {
 
             for (var i = 0; i < startingTiles.Count; i++)
                 agents[i].Initialize(startingTiles[i].TileLocation);
+            
         }
 
         public void Update() {
