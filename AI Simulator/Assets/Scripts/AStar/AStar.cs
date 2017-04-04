@@ -8,9 +8,8 @@ namespace Assets.Scripts.AStar {
         public static Stack<Node> GetPath(TileLocation start, TileLocation goal) {
 
             var _nodes = new Dictionary<TileLocation, Node>();
-            foreach (var tile in TileManager.GetInstance().Tiles.Values) {
+            foreach (var tile in TileManager.GetInstance().Tiles.Values) 
                 _nodes.Add(tile.TileLocation, new Node(tile));
-            }
             var currentNode = _nodes[start];
             var openList = new HashSet<Node>();
             var closedList = new HashSet<Node>();
@@ -34,8 +33,7 @@ namespace Assets.Scripts.AStar {
                                     if (currentNode.G + gCost < neighbor.G) {
                                         neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                     }
-                                }
-                                else if (!closedList.Contains(neighbor)) {
+                                } else if (!closedList.Contains(neighbor)) {
                                     openList.Add(neighbor);
                                     neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                 }

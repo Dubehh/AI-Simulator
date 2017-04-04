@@ -5,11 +5,11 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents {
-    public abstract class AgentBehaviorBase {
+    public abstract class AgentBehaviourBase {
 
         protected AgentBase Agent { get; private set; }
 
-        protected AgentBehaviorBase(AgentBase agent) {
+        protected AgentBehaviourBase(AgentBase agent) {
             Agent = agent;
         }
 

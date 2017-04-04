@@ -1,11 +1,10 @@
-﻿using Assets.Scripts.Utils;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Agents.Behaviors {
-    class SeekBehavior : AgentBehaviorBase {
+namespace Assets.Scripts.Agents.Behaviours {
+    class SeekBehaviour : AgentBehaviourBase {
         private readonly Vector3 _seekTarget;
 
-        public SeekBehavior(AgentBase agent, Vector3 seekTarget) : base(agent) {
+        public SeekBehaviour(AgentBase agent, Vector3 seekTarget) : base(agent) {
             _seekTarget = seekTarget;
         }
 

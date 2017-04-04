@@ -1,14 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Assets.Scripts.Agents.Behaviours;
 using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents.Agents {
-    public class RedCarAgent : AgentBase {
+    public class BlueCarAgent : AgentBase {
 
-        public RedCarAgent() : base("car_red") {
-            Speed = 1f;
-            Wear = 2f;
+        public BlueCarAgent() : base("car_blue") {
+            Speed = 1.2f;
+            Wear = 3f;
         }
 
         public override void Load() {
@@ -18,14 +21,16 @@ namespace Assets.Scripts.Agents.Agents {
             var goal = TileManager.GetInstance().Tiles[new TileLocation(2, 3)];
             goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
 
+
             var finalPath = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
-            Behavior = new PathFollowingBehaviour(finalPath.ToList(), .3f, this);
+
+            Behavior = new PathFollowingBehaviour(finalPath.ToList(), 0.3f, this);
         }
 
         public override void Update() {
             var posRot = Behavior.Calculate();
             Object.transform.position = posRot.Position.Value;
-            Object.transform.rotation = posRot.Rotation ?? Object.transform.rotation;
+            Object.transform.rotation = posRot.Rotation.HasValue ? posRot.Rotation.Value : Object.transform.rotation;
         }
     }
 }

@@ -39,6 +39,7 @@ namespace Assets.Scripts.Level {
         /// </summary>
         public void Load() {
             var levelGrid = LevelUtil.ReadLevelAsGrid("Level");
+            GameObject parent = new GameObject() { name = "Map"};
             for (var y = 0; y < levelGrid.Length; y++) {
                 for (var x = 0; x < levelGrid[y].Length; x++) {
                     // Split the information, so we have the identifier of the tile type and the degrees of rotation
@@ -54,7 +55,7 @@ namespace Assets.Scripts.Level {
                     if (TileSize <= 0) 
                         TileSize = size;
                     tile.Object.transform.position = new Vector3(_worldStart.x + size * x, _worldStart.y - size * y, 0);
-
+                    tile.Object.transform.parent = parent.transform;
                     // Add tile to the dictionary so we can look it up with the correct location
                     var location = new TileLocation(x, y);
                     tile.TileLocation = location;

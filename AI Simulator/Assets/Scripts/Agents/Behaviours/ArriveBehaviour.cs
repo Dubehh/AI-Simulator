@@ -11,7 +11,7 @@ namespace Assets.Scripts.Agents.Behaviors {
         Fast = 1
     }
 
-    public class OwnArriveBehaviour : AgentBehaviorBase {
+    public class OwnArriveBehaviour : AgentBehaviourBase {
         private readonly Vector3 _target;
         private readonly Deceleration _deceleration;
 
