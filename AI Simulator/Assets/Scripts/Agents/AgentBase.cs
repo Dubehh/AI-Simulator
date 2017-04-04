@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Level;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents {
@@ -11,30 +12,33 @@ namespace Assets.Scripts.Agents {
         
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
+        public TileLocation TileLocation { get; set; }
+        public readonly float WearDamage;
         public int ID { get; private set; }
         public float Wear { get; set; }
 
-        public AgentBehaviorBase Behavior { get; set; }
+        public AgentBehaviourBase Behavior { get; set; }
 
         private float _speed;
         private readonly string _fileName;
         
-        protected AgentBase(string filename) {
+        protected AgentBase(string filename) : this(filename, 1.0f) {}
+        protected AgentBase(string filename, float dmg) {
+            WearDamage = 1.0f;
             _fileName = filename;
             ID = _agents;
             _agents++;
         }
-
         public float Speed {
             get { return _speed * Time.deltaTime; }
             set { _speed = value; }
         }
 
         public void Initialize() {
-            Initialize(new Vector3(0, 0, 0));
+            Initialize(TileManager.GetInstance().OrderedTiles[TileType.Finish][0].TileLocation);
         }
 
-        public void Initialize(Vector3 location) {
+        public void Initialize(TileLocation loc) {
             Sprite = SpriteManager.GetInstance().GetSprite(_fileName, "png");
             Object = new GameObject();
             SpriteRenderer renderer = Object.AddComponent<SpriteRenderer>();
@@ -42,7 +46,7 @@ namespace Assets.Scripts.Agents {
             body.gravityScale = 0;
             renderer.sprite = Sprite;
             Object.transform.parent = AgentManager.GetInstance().Parent.transform;
-            Object.transform.position = location;
+            Object.transform.position = new Vector3(loc.X, loc.Y);
             Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);
             Load();

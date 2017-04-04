@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Agents.Behaviors {
-    public class TurnBehavior : AgentBehaviorBase {
+namespace Assets.Scripts.Agents.Behaviours {
+    public class TurnBehaviour : AgentBehaviourBase {
         private readonly Vector3 _seekTarget;
 
-        public TurnBehavior(AgentBase agent, Vector3 seekTarget) : base(agent) {
+        public TurnBehaviour(AgentBase agent, Vector3 seekTarget) : base(agent) {
             _seekTarget = seekTarget;
         }
 

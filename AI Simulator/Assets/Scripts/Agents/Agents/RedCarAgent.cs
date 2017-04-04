@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Assets.Scripts.Agents.Behaviors;
+using Assets.Scripts.Agents.Behaviours;
 using Assets.Scripts.Level;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Agents.Agents {
 
             var finalPath = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
 
-            Behavior = new PathFollowingBehavior(finalPath.ToList(), 0.1f, this);
+            Behavior = new PathFollowingBehaviour(finalPath.ToList(), .3f, this);
         }
 
         public override void Update() {
