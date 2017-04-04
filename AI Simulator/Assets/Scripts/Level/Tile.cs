@@ -19,7 +19,7 @@ namespace Assets.Scripts.Level {
             Sprite = SpriteManager.GetInstance().GetSprite(spritename, extension);
             Object = new GameObject();
             Object.AddComponent<SpriteRenderer>();
-            Object.AddComponent<BoxCollider2D>();
+           
             Object.GetComponent<SpriteRenderer>().sprite = Sprite;
         }
 

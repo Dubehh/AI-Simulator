@@ -20,8 +20,6 @@ namespace Assets.Scripts.Agents.Behaviours {
 
         public override AgentTransformation Calculate() {
             if (!Finished()) {
-                Debug.Log("Not Finished" + _currentPoint + "Path count" + _path.Count);
-
                 var turnBehavior = new TurnBehaviour(Agent, _path[(_currentPoint < _path.Count - 1 ? _currentPoint + 1 : _currentPoint)].Tile.Object.transform.position).Calculate();
                 var target = _path[_currentPoint].Tile.Object.transform.position;
                 var toTarget = target - Agent.Object.transform.position;
