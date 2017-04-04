@@ -21,7 +21,7 @@ namespace Assets.Scripts.Agents.Agents {
 
             var finalPath = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
 
-            Behavior = new PathFollowingBehavior(finalPath.ToList(), 0.1f, this);
+            Behavior = new PathFollowingBehavior(finalPath.ToList(), .55f, this);
         }
 
         public override void Update() {

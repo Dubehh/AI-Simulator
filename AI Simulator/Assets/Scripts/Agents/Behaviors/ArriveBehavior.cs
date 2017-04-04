@@ -2,11 +2,11 @@
 using UnityEngine;
 
 namespace Assets.Scripts.Agents.Behaviors {
-    public enum Deceleration {
-        Slow = 3,
-        Normal = 2,
-        Fast = 1
-    }
+    //public enum Deceleration {
+    //    Slow = 3,
+    //    Normal = 2,
+    //    Fast = 1
+    //}
     public class ArriveBehavior : AgentBehaviorBase {
         private readonly Vector3 _target;
         private readonly Deceleration _deceleration;
