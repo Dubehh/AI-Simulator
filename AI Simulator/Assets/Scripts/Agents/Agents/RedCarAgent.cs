@@ -19,7 +19,6 @@ namespace Assets.Scripts.Agents.Agents {
             goal.Object.GetComponent<SpriteRenderer>().color = Color.red;
 
             var finalPath = AStar.AStar.GetPath(start.TileLocation, goal.TileLocation);
-
             Behavior = new PathFollowingBehaviour(finalPath.ToList(), .3f, this);
         }
 
