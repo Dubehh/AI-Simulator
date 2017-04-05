@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Assets.Scripts.Agents.States {
     public abstract class DrivingStateBase : IState{
 
-        public TileLocation Target { get; protected set; }
+        public TileLocation Target { get; set; }
         protected DrivingStateBase() {}
 
         public void Enter(AgentBase agent) {
@@ -20,6 +20,9 @@ namespace Assets.Scripts.Agents.States {
 
         public virtual void Execute(AgentBase agent) {
             agent.Wear += agent.Wear * agent.WearDamage;
+            var posRot = agent.Behavior.Calculate();
+            agent.Object.transform.position = posRot.Position.Value;
+            agent.Object.transform.rotation = posRot.Rotation.HasValue ? posRot.Rotation.Value : agent.Object.transform.rotation;
         }
 
         public abstract void Exit(AgentBase agent);

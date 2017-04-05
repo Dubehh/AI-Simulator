@@ -3,13 +3,16 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.Level;
 using UnityEngine;
+using Assets.Scripts.Agents.States;
 
 namespace Assets.Scripts.Agents {
 
     public abstract class AgentBase {
 
         private static int _agents;
-        
+        private float _speed;
+        private readonly string _fileName;
+
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
         public TileLocation TileLocation { get; set; }
@@ -18,9 +21,7 @@ namespace Assets.Scripts.Agents {
         public float Wear { get; set; }
 
         public AgentBehaviourBase Behavior { get; set; }
-
-        private float _speed;
-        private readonly string _fileName;
+        public StateMachine StateMachine { get; set; }
         
         protected AgentBase(string filename) : this(filename, 1.0f) {}
         protected AgentBase(string filename, float dmg) {
@@ -28,6 +29,8 @@ namespace Assets.Scripts.Agents {
             _fileName = filename;
             ID = _agents;
             _agents++;
+           
+
         }
         public float Speed {
             get { return _speed * Time.deltaTime; }
