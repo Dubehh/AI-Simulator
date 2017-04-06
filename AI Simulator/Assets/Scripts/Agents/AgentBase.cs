@@ -3,24 +3,26 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.Level;
 using UnityEngine;
+using Assets.Scripts.Agents.States;
 
 namespace Assets.Scripts.Agents {
 
     public abstract class AgentBase {
 
         private static int _agents;
-        
+        private float _speed;
+        private readonly string _fileName;
+
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
-        public TileLocation TileLocation { get; set; }
+        public TileLocation StartedAtTileLocation { get; set; }
+        public TileLocation CurrentTileLocation { get; set; }        
         public readonly float WearDamage;
         public int ID { get; private set; }
         public float Wear { get; set; }
 
         public AgentBehaviourBase Behavior { get; set; }
-
-        private float _speed;
-        private readonly string _fileName;
+        public StateMachine StateMachine { get; set; }
         
         protected AgentBase(string filename) : this(filename, 1.0f) {}
         protected AgentBase(string filename, float dmg) {
@@ -28,6 +30,9 @@ namespace Assets.Scripts.Agents {
             _fileName = filename;
             ID = _agents;
             _agents++;
+            StateMachine = new StateMachine(this);
+           
+
         }
         public float Speed {
             get { return _speed * Time.deltaTime; }
@@ -50,7 +55,9 @@ namespace Assets.Scripts.Agents {
             body.gravityScale = 0;
             renderer.sprite = Sprite;
             Object.transform.parent = AgentManager.GetInstance().Parent.transform;
-            TileLocation = loc;
+            StartedAtTileLocation = loc;
+            Debug.Log("StartedAtTileLocation set, x:" + StartedAtTileLocation.X + "," + StartedAtTileLocation.Y);
+            CurrentTileLocation = loc; 
             Object.transform.position = TileManager.GetInstance().Tiles[loc].Object.transform.position;
             Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);
