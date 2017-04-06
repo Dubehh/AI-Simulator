@@ -12,6 +12,7 @@ namespace Assets.Scripts.Agents.Behaviours {
         private readonly List<Node> _path;
         private int _currentPoint;
         private readonly float _waypointSeekDistance;
+
         public PathFollowingBehaviour(List<Node> path, float waypointSeekDistance, AgentBase agent) : base(agent) {
             _path = path;
             _currentPoint = 0;
@@ -24,21 +25,26 @@ namespace Assets.Scripts.Agents.Behaviours {
                 var target = _path[_currentPoint].Tile.Object.transform.position;
                 var toTarget = target - Agent.Object.transform.position;
                 if (toTarget.sqrMagnitude < _waypointSeekDistance * _waypointSeekDistance) {
+                    Agent.CurrentTileLocation = _path[_currentPoint].Tile.TileLocation;
                     _currentPoint++;
                     if (_currentPoint + 1 < _path.Count) {
+
                         target = _path[_currentPoint].Tile.Object.transform.position;
                     }
                 }
                 var seekBehavior = new SeekBehaviour(Agent, target).Calculate();
                 return new AgentTransformation(turnBehavior.Rotation.Value, seekBehavior.Position.Value);
-            } else {
+            }
+            else {
                 var target = _path[_currentPoint - 1].Tile.Object.transform.position;
                 return new OwnArriveBehaviour(Agent, target, Deceleration.Normal).Calculate();
             }
         }
 
 
-        private bool Finished() {
+        public bool Finished() {
+            Debug.Log("false");
+            Debug.Log("Current point" + _currentPoint + ", size" + _path.Count);
             return _currentPoint >= _path.Count;
         }
     }

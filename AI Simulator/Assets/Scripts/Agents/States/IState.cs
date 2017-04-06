@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Assets.Scripts.Agents.States {
-    interface IState {
+    public interface IState {
 
         void Enter(AgentBase agent);
         void Execute(AgentBase agent);

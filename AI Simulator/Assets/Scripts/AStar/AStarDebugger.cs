@@ -49,9 +49,7 @@ namespace Assets.Scripts.AStar {
 
         public void DebugPath(Stack<Node> path) {
             foreach (var node in path) {
-                if (node.Tile != _start && node.Tile != _goal) {
                     node.Tile.Object.GetComponent<SpriteRenderer>().color = Color.green;
-                }
             }
         }
     }
