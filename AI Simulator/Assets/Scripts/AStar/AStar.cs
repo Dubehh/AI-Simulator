@@ -6,9 +6,9 @@ using UnityEngine;
 namespace Assets.Scripts.AStar {
     public static class AStar {
         public static Stack<Node> GetPath(TileLocation start, TileLocation goal) {
-
+            Debug.Log("Astar.GetPath() start, x:" + start.X + ", y: " + start.Y);
             var _nodes = new Dictionary<TileLocation, Node>();
-            foreach (var tile in TileManager.GetInstance().Tiles.Values) 
+            foreach (var tile in TileManager.GetInstance().Tiles.Values)
                 _nodes.Add(tile.TileLocation, new Node(tile));
             var currentNode = _nodes[start];
             var openList = new HashSet<Node>();
@@ -21,22 +21,21 @@ namespace Assets.Scripts.AStar {
                 for (var x = -1; x <= 1; x++) {
                     for (var y = -1; y <= 1; y++) {
                         // Disallow diagonally walking
-                        if (!(x == -1 && (y == -1 || y == 1) || x == 1 && (y == -1 || y == 1))) {
-                            var neighborPos = new TileLocation(currentNode.GridPosition.X - x, currentNode.GridPosition.Y - y);
-                            if (TileManager.GetInstance().InBounds(neighborPos)
-                                && TileManager.GetInstance().Tiles[neighborPos].Type != TileType.Finish
-                                && TileManager.GetInstance().Tiles[neighborPos].Walkable
-                                && neighborPos != currentNode.GridPosition) {
-                                var gCost = 1;
-                                var neighbor = _nodes[neighborPos];
-                                if (openList.Contains(neighbor)) {
-                                    if (currentNode.G + gCost < neighbor.G) {
-                                        neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
-                                    }
-                                } else if (!closedList.Contains(neighbor)) {
-                                    openList.Add(neighbor);
+                        var neighborPos = new TileLocation(currentNode.GridPosition.X - x, currentNode.GridPosition.Y - y);
+                        if (TileManager.GetInstance().InBounds(neighborPos)
+                            && TileManager.GetInstance().Tiles[neighborPos].Type != TileType.Finish
+                            && TileManager.GetInstance().Tiles[neighborPos].Walkable
+                            && neighborPos != currentNode.GridPosition) {
+                            var gCost = 1;
+                            var neighbor = _nodes[neighborPos];
+                            if (openList.Contains(neighbor)) {
+                                if (currentNode.G + gCost < neighbor.G) {
                                     neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                 }
+                            }
+                            else if (!closedList.Contains(neighbor)) {
+                                openList.Add(neighbor);
+                                neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                             }
                         }
                     }
@@ -52,6 +51,7 @@ namespace Assets.Scripts.AStar {
                         finalPath.Push(currentNode);
                         currentNode = currentNode.Parent;
                     }
+                    finalPath.Push(currentNode);
                     break;
                 }
             }
