@@ -13,7 +13,7 @@ namespace Assets.Scripts.Agents.Behaviours {
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             var q = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            return new AgentTransformation(Quaternion.Slerp(Agent.Object.transform.rotation, q, 30f * Time.deltaTime));
+            return new AgentTransformation(Quaternion.Slerp(Agent.Object.transform.rotation, q, 15f * Time.deltaTime));
         }
     }
 }
