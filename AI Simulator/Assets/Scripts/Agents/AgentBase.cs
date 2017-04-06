@@ -49,7 +49,6 @@ namespace Assets.Scripts.Agents {
             /* Setup components */
             SpriteRenderer renderer = Object.AddComponent<SpriteRenderer>();
             Rigidbody2D body = Object.AddComponent<Rigidbody2D>();
-            BoxCollider2D collider = Object.AddComponent<BoxCollider2D>();
 
             /* Assign default values */
             body.gravityScale = 0;

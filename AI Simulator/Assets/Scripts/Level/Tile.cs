@@ -18,14 +18,12 @@ namespace Assets.Scripts.Level {
             Walkable = walkable;
             Sprite = SpriteManager.GetInstance().GetSprite(spritename, extension);
             Object = new GameObject();
-            Object.AddComponent<SpriteRenderer>();
-           
-            Object.GetComponent<SpriteRenderer>().sprite = Sprite;
+            SpriteRenderer renderer = Object.AddComponent<SpriteRenderer>();
+            renderer.sprite = Sprite;
         }
 
         public void Rotate(float degrees) {
             Object.transform.rotation = Quaternion.Euler(new Vector3(0, 0, degrees));
-            //Object.transform.Rotate(Vector3.back, degrees);
         }
 
         public Tile(TileType type, bool walkable = false)
