@@ -25,8 +25,10 @@ namespace Assets.Scripts.Agents.Behaviours {
                 var target = _path[_currentPoint].Tile.Object.transform.position;
                 var toTarget = target - Agent.Object.transform.position;
                 if (toTarget.sqrMagnitude < _waypointSeekDistance * _waypointSeekDistance) {
+                    Agent.CurrentTileLocation = _path[_currentPoint].Tile.TileLocation;
                     _currentPoint++;
                     if (_currentPoint + 1 < _path.Count) {
+
                         target = _path[_currentPoint].Tile.Object.transform.position;
                     }
                 }
@@ -41,6 +43,8 @@ namespace Assets.Scripts.Agents.Behaviours {
 
 
         public bool Finished() {
+            Debug.Log("false");
+            Debug.Log("Current point" + _currentPoint + ", size" + _path.Count);
             return _currentPoint >= _path.Count;
         }
     }

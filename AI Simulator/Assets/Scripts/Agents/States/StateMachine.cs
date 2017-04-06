@@ -22,9 +22,6 @@ namespace Assets.Scripts.Agents.States {
         }
 
         public void Update() {
-            if (PreviousState == null) {
-                CurrentState.Enter(_entity);
-            }
             if (CurrentState != null) {
                 CurrentState.Execute(_entity);
             }

@@ -15,7 +15,8 @@ namespace Assets.Scripts.Agents {
 
         public Sprite Sprite { get; private set; }
         public GameObject Object { get; private set; }
-        public TileLocation TileLocation { get; set; }
+        public TileLocation StartedAtTileLocation { get; set; }
+        public TileLocation CurrentTileLocation { get; set; }        
         public readonly float WearDamage;
         public int ID { get; private set; }
         public float Wear { get; set; }
@@ -29,6 +30,7 @@ namespace Assets.Scripts.Agents {
             _fileName = filename;
             ID = _agents;
             _agents++;
+            StateMachine = new StateMachine(this);
            
 
         }
@@ -53,7 +55,9 @@ namespace Assets.Scripts.Agents {
             body.gravityScale = 0;
             renderer.sprite = Sprite;
             Object.transform.parent = AgentManager.GetInstance().Parent.transform;
-            TileLocation = loc;
+            StartedAtTileLocation = loc;
+            Debug.Log("StartedAtTileLocation set, x:" + StartedAtTileLocation.X + "," + StartedAtTileLocation.Y);
+            CurrentTileLocation = loc; 
             Object.transform.position = TileManager.GetInstance().Tiles[loc].Object.transform.position;
             Object.name = "Agent '"+_fileName+"' "+ID;
             AgentManager.GetInstance().Agents.Add(this);

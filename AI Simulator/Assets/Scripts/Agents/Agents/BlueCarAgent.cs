@@ -16,11 +16,7 @@ namespace Assets.Scripts.Agents.Agents {
         }
 
         public override void Load() {
-            StateMachine = new StateMachine(this);
-            var drivingToFinish = new DrivingToFinish();
-            drivingToFinish.Target = TileManager.GetInstance().Tiles[new TileLocation(2, 3)].TileLocation;
-
-            StateMachine.CurrentState = drivingToFinish;
+           
         }
 
         public override void Update() {
