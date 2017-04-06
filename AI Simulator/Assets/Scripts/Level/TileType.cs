@@ -9,6 +9,7 @@ namespace Assets.Scripts.Level {
     
         Grass = 0,
         Road = 1,
-        Finish = 2
+        Finish = 2,
+        Repair = 3
     }
 }
