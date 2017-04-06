@@ -23,7 +23,7 @@ public class UICore : MonoBehaviour {
         _canvas = GetComponent<Canvas>();
         _container = _canvas.GetComponentInChildren<SpriteRenderer>();
         _container.sortingOrder = 2;
-        _container.color = new Color(1f, 1f, 1f, .5f);
+        _container.color = new Color(1f, 1f, 1f, 0f);
         _container.gameObject.SetActive(false);
 
     }

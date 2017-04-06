@@ -10,9 +10,8 @@ using Assets.Scripts.Agents.States;
 namespace Assets.Scripts.Agents.Agents {
     public class BlueCarAgent : AgentBase {
 
-        public BlueCarAgent() : base("car_blue") {
+        public BlueCarAgent() : base("car_blue", 1.1f) {
             Speed = 1.2f;
-            Wear = 3f;
         }
 
         public override void Load() {

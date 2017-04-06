@@ -6,9 +6,8 @@ using UnityEngine;
 namespace Assets.Scripts.Agents.Agents {
     public class RedCarAgent : AgentBase {
 
-        public RedCarAgent() : base("car_red") {
+        public RedCarAgent() : base("car_red", 1.05f) {
             Speed = 1f;
-            Wear = 2f;
         }
 
         public override void Load() {
