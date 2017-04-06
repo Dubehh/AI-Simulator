@@ -28,7 +28,7 @@ namespace Assets.Scripts.Agents {
             for (var i = 0; i < startingTiles.Count; i++) {
                 if (i < agents.Length) {
                     agents[i].Initialize(startingTiles[i].TileLocation);
-                    Debug.Log("AgentManager.Load(), finish: " + startingTiles[i].TileLocation.X + ", " + startingTiles[i].TileLocation.Y);
+                    //Debug.Log("AgentManager.Load(), finish: " + startingTiles[i].TileLocation.X + ", " + startingTiles[i].TileLocation.Y);
 
                     agents[i].StateMachine.ChangeState(new DrivingToFinish());
 

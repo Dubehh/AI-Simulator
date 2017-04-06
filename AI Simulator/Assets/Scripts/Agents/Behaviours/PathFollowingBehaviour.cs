@@ -36,6 +36,7 @@ namespace Assets.Scripts.Agents.Behaviours {
                 return new AgentTransformation(turnBehavior.Rotation.Value, seekBehavior.Position.Value);
             }
             else {
+                Debug.Log("Set to true!");
                 var target = _path[_currentPoint - 1].Tile.Object.transform.position;
                 return new OwnArriveBehaviour(Agent, target, Deceleration.Normal).Calculate();
             }
@@ -43,8 +44,8 @@ namespace Assets.Scripts.Agents.Behaviours {
 
 
         public bool Finished() {
-            Debug.Log("false");
-            Debug.Log("Current point" + _currentPoint + ", size" + _path.Count);
+            //Debug.Log(_currentPoint >= _path.Count);
+            //Debug.Log("Current point" + _currentPoint + ", size" + _path.Count);
             return _currentPoint >= _path.Count;
         }
     }

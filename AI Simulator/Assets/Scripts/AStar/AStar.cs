@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Scripts.AStar {
     public static class AStar {
         public static Stack<Node> GetPath(TileLocation start, TileLocation goal) {
-            Debug.Log("Astar.GetPath() start, x:" + start.X + ", y: " + start.Y);
+            //Debug.Log("Astar.GetPath() start, x:" + start.X + ", y: " + start.Y);
             var _nodes = new Dictionary<TileLocation, Node>();
             foreach (var tile in TileManager.GetInstance().Tiles.Values)
                 _nodes.Add(tile.TileLocation, new Node(tile));
