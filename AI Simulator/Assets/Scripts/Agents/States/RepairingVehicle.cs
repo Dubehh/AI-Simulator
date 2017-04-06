@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts.Agents.States {
     class RepairingVehicle : IState{
@@ -11,9 +11,10 @@ namespace Assets.Scripts.Agents.States {
         }
 
         public void Execute(AgentBase agent) {
-            if (agent.Wear * agent.WearDamage > 0)
-                agent.Wear -= agent.WearDamage;
+            if (agent.Wear > 0)
+                agent.Wear -= agent.WearDamage*(Random.Range(7f,9f));
             else {
+                agent.Speed = agent.MaxSpeed; 
                 agent.StateMachine.ChangeState(new DrivingToFinish());
             }
         }

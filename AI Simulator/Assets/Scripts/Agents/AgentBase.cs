@@ -8,7 +8,6 @@ using Assets.Scripts.Agents.States;
 namespace Assets.Scripts.Agents {
 
     public abstract class AgentBase {
-
         private static int _agents;
         private float _speed;
         private readonly string _fileName;
@@ -20,13 +19,17 @@ namespace Assets.Scripts.Agents {
         public readonly float WearDamage;
         public int ID { get; private set; }
         public float Wear { get; set; }
+        public readonly float MinSpeed = 0.5f;
+        public readonly float MaxSpeed;
 
         public AgentBehaviourBase Behavior { get; set; }
         public StateMachine StateMachine { get; set; }
         
-        protected AgentBase(string filename) : this(filename, 1.0f) {}
-        protected AgentBase(string filename, float dmg) {
-            WearDamage = 1.0f;
+        protected AgentBase(string filename) : this(filename, 1.0f, 1.0f) {}
+        protected AgentBase(string filename, float dmg, float maxSpeed) {
+            WearDamage = dmg;
+            MaxSpeed = maxSpeed;
+            Speed = maxSpeed;
             _fileName = filename;
             ID = _agents;
             _agents++;
@@ -55,7 +58,7 @@ namespace Assets.Scripts.Agents {
             renderer.sprite = Sprite;
             Object.transform.parent = AgentManager.GetInstance().Parent.transform;
             StartedAtTileLocation = loc;
-            Debug.Log("StartedAtTileLocation set, x:" + StartedAtTileLocation.X + "," + StartedAtTileLocation.Y);
+            //Debug.Log("StartedAtTileLocation set, x:" + StartedAtTileLocation.X + "," + StartedAtTileLocation.Y);
             CurrentTileLocation = loc; 
             Object.transform.position = TileManager.GetInstance().Tiles[loc].Object.transform.position;
             Object.name = "Agent '"+_fileName+"' "+ID;
