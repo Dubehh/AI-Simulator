@@ -10,10 +10,10 @@ namespace Assets.Scripts.Agents.States {
 
         public override void Enter(AgentBase agent) {
 
-            var startPosition = agent.CurrentTileLocation;
-            var finishPosition = new TileLocation(agent.StartedAtTileLocation.X - 1, agent.StartedAtTileLocation.Y);
+            var startFromPosition = agent.StartedAtTileLocation;
+            var finishPosition = new TileLocation(14, 6);
             Target = finishPosition;
-            Start = startPosition;
+            Start = new TileLocation(startFromPosition.X+1, startFromPosition.Y);
 
             base.Enter(agent);
         }
@@ -23,9 +23,8 @@ namespace Assets.Scripts.Agents.States {
                 var tempBehaviour = (PathFollowingBehaviour)agent.Behavior;
                 if (tempBehaviour.Finished()) {
                     Debug.Log("Finished! Change to RepairingState");
+                    agent.StateMachine.ChangeState(new RepairingVehicle());
                 }
-                // Here has to come logic if wear is lower than x
-                //agent.StateMachine.ChangeState(new RepairingState());
             }
         }
 

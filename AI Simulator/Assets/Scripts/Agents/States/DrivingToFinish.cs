@@ -10,16 +10,17 @@ namespace Assets.Scripts.Agents.States {
 
         public override void Enter(AgentBase agent) {
             var startDrivingTo = Settings.StartFromFinish;
-            TileLocation startFromPosition;
+
+            TileLocation startPosition;
+
             if (startDrivingTo == Direction.Right) {
                 if (agent.StateMachine.PreviousState == null || agent.StateMachine.PreviousState.GetType() == typeof(DrivingToFinish)) {
 
-                    startFromPosition = agent.StartedAtTileLocation;
+                    startPosition = new TileLocation(agent.StartedAtTileLocation.X+1, agent.StartedAtTileLocation.Y);
                 }
                 else {
-                    startFromPosition = agent.CurrentTileLocation;
+                    startPosition = agent.CurrentTileLocation;
                 }
-                var startPosition = new TileLocation(startFromPosition.X + 1, startFromPosition.Y);
                 var finishPosition = new TileLocation(agent.StartedAtTileLocation.X - 1, agent.StartedAtTileLocation.Y);
                 Target = finishPosition;
                 Start = startPosition;
@@ -29,11 +30,17 @@ namespace Assets.Scripts.Agents.States {
         public override void Execute(AgentBase agent) {
             base.Execute(agent);
             if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
+                //Debug.Log("TYPE == PathFollowingBehaviour");
                 var tempBehaviour = (PathFollowingBehaviour)agent.Behavior;
                 if (tempBehaviour.Finished()) {
-
-                    // Here has to come logic if wear is lower than x
-                    agent.StateMachine.ChangeState(new DrivingToFinish());
+                    Debug.Log("IS FINISHED!, wear of the agent is now: "+ agent.Wear);
+                    if (agent.Wear < 60) {
+                        // Here has to come logic if wear is lower than x
+                        agent.StateMachine.ChangeState(new DrivingToFinish());
+                    }
+                    else {
+                        agent.StateMachine.ChangeState(new DrivingToPitstop());
+                    }
                 }
             }
         }
