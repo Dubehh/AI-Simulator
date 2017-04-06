@@ -19,6 +19,10 @@ public class UICore : MonoBehaviour {
 	    }
 	}
 
+    void onValueChanged(bool val) {
+        Debug.Log("AAAAAAAAAAAAAAAAAAAAAAAAAa");
+    }
+
     private void Load() {
         _canvas = GetComponent<Canvas>();
         _container = _canvas.GetComponentInChildren<SpriteRenderer>();
