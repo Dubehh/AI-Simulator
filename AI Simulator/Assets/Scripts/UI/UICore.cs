@@ -28,9 +28,4 @@ public class UICore : MonoBehaviour {
 
     }
 
-    void OnGUI() {
-        if (Event.current.Equals(Event.KeyboardEvent(KeyCode.Space.ToString())))
-            Debug.Log("Space key is pressed.");
-    }
-
 }
