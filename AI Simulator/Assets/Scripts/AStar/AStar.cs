@@ -44,9 +44,8 @@ namespace Assets.Scripts.AStar {
                 openList.Remove(currentNode);
                 closedList.Add(currentNode);
 
-                if (openList.Count > 0) {
+                if (openList.Count > 0)
                     currentNode = openList.OrderBy(x => x.F).First();
-                }
 
                 if (currentNode == _nodes[goal]) {
                     while (currentNode.GridPosition != start) {
