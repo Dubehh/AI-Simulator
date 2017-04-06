@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Assets.Scripts.Agents.Agents {
     public class RedCarAgent : AgentBase {
 
-        public RedCarAgent() : base("car_red", 0.015f, 1f) {
+        public RedCarAgent() : base("car_red", 0.008f, 1f) {
             
         }
 
