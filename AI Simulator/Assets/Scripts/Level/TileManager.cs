@@ -17,6 +17,33 @@ namespace Assets.Scripts.Level {
         private static TileManager _instance;
         private readonly Vector3 _worldStart;
 
+        internal void UndoUnwalkable() {
+            OrderedTiles[TileType.Road].ForEach(x => x.Walkable = true);
+            UpdateColors();
+        }
+
+        internal void SetOneToUnwalkable() {
+            var list = OrderedTiles[TileType.Road].ToList();
+            var randomTile = list[Convert.ToInt32(UnityEngine.Random.RandomRange(0, list.Count))];
+            randomTile.Walkable = false;
+            UpdateColors();
+        }
+
+        public void UpdateColors() {
+            foreach (var tile in OrderedTiles[TileType.Road]) {
+                tile.Object.GetComponent<SpriteRenderer>().color = tile.Color;
+                if (!tile.Walkable) {
+                    //tile.Object.GetComponent<SpriteRenderer>().color = Color.red;
+                    tile.Sprite = SpriteManager.GetInstance().GetSprite("broken_tile_road", "png");
+                    tile.Object.GetComponent<SpriteRenderer>().sprite = tile.Sprite;
+                }
+                else {
+                    tile.Sprite = SpriteManager.GetInstance().GetSprite("tile_road", "png");
+                    tile.Object.GetComponent<SpriteRenderer>().sprite = tile.Sprite;
+                }
+            }
+        }
+
         private TileManager() {
             OrderedTiles = new Dictionary<TileType, List<Tile>>();
             foreach (TileType value in Enum.GetValues(typeof(TileType)))
@@ -39,7 +66,7 @@ namespace Assets.Scripts.Level {
         /// </summary>
         public void Load() {
             var levelGrid = LevelUtil.ReadLevelAsGrid("Level");
-            GameObject parent = new GameObject() { name = "Map"};
+            GameObject parent = new GameObject() { name = "Map" };
             for (var y = 0; y < levelGrid.Length; y++) {
                 for (var x = 0; x < levelGrid[y].Length; x++) {
                     // Split the information, so we have the identifier of the tile type and the degrees of rotation
@@ -52,7 +79,7 @@ namespace Assets.Scripts.Level {
                     if (type != TileType.Grass)
                         tile.Walkable = true;
                     var size = tile.Sprite.bounds.size.x;
-                    if (TileSize <= 0) 
+                    if (TileSize <= 0)
                         TileSize = size;
                     tile.Object.transform.position = new Vector3(_worldStart.x + size * x, _worldStart.y - size * y, 0);
                     tile.Object.transform.parent = parent.transform;

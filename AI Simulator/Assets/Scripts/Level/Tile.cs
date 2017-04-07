@@ -9,7 +9,7 @@ namespace Assets.Scripts.Level {
     public class Tile {
 
         public GameObject Object { get; private set; }
-        public Sprite Sprite { get; private set; }
+        public Sprite Sprite { get; set; }
         public TileLocation TileLocation { get; set; }
         public bool Walkable { get; set; }
         public TileType Type { get; set; }

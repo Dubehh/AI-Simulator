@@ -31,22 +31,24 @@ namespace Assets.Scripts.AStar {
             while (openList.Count > 0) {
                 for (var x = -1; x <= 1; x++) {
                     for (var y = -1; y <= 1; y++) {
-                        // Disallow diagonally walking
-                        var neighborPos = new TileLocation(currentNode.GridPosition.X - x, currentNode.GridPosition.Y - y);
-                        if (TileManager.GetInstance().InBounds(neighborPos)
-                            && TileManager.GetInstance().Tiles[neighborPos].Type != TileType.Finish
-                            && TileManager.GetInstance().Tiles[neighborPos].Walkable
-                            && neighborPos != currentNode.GridPosition) {
-                            var gCost = 1;
-                            var neighbor = _nodes[neighborPos];
-                            if (openList.Contains(neighbor)) {
-                                if (currentNode.G + gCost < neighbor.G) {
+                        if (!(x == -1 && (y == -1 || y == 1) || x == 1 && (y == -1 || y == 1))) {
+                            // Disallow diagonally walking
+                            var neighborPos = new TileLocation(currentNode.GridPosition.X - x, currentNode.GridPosition.Y - y);
+                            if (TileManager.GetInstance().InBounds(neighborPos)
+                                && TileManager.GetInstance().Tiles[neighborPos].Type != TileType.Finish
+                                && TileManager.GetInstance().Tiles[neighborPos].Walkable
+                                && neighborPos != currentNode.GridPosition) {
+                                var gCost = 1;
+                                var neighbor = _nodes[neighborPos];
+                                if (openList.Contains(neighbor)) {
+                                    if (currentNode.G + gCost < neighbor.G) {
+                                        neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
+                                    }
+                                }
+                                else if (!closedList.Contains(neighbor)) {
+                                    openList.Add(neighbor);
                                     neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                                 }
-                            }
-                            else if (!closedList.Contains(neighbor)) {
-                                openList.Add(neighbor);
-                                neighbor.CalcValues(currentNode, gCost, _nodes[goal]);
                             }
                         }
                     }

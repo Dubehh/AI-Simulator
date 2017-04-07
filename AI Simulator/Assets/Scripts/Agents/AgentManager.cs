@@ -4,6 +4,7 @@ using Assets.Scripts.Level;
 using UnityEngine;
 using Assets.Scripts.Agents.States;
 using System.Linq;
+using System;
 
 namespace Assets.Scripts.Agents {
     public class AgentManager {
@@ -22,7 +23,7 @@ namespace Assets.Scripts.Agents {
         }
 
         public void Load() {
-            var agents = new AgentBase[] { new RedCarAgent(),  new BlueCarAgent() };
+            var agents = new AgentBase[] { new RedCarAgent(),  new BlueCarAgent(), new GreenCarAgent() };
             var startingTiles = TileManager.GetInstance().OrderedTiles[TileType.Finish];
 
             for (var i = 0; i < startingTiles.Count; i++) {
@@ -35,6 +36,14 @@ namespace Assets.Scripts.Agents {
                 }
             }
 
+        }
+
+        internal void TriggerAStar() {
+            foreach(var agent in Agents) {
+                var type = agent.StateMachine.CurrentState.GetType();
+                Debug.Log(type);
+                agent.StateMachine.ChangeState((IState)Activator.CreateInstance(type));
+            }
         }
 
         public void Update() {

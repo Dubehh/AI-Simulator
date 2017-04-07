@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Agents;
+using Assets.Scripts.Level;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Agents;
@@ -17,17 +19,41 @@ public class UICore : MonoBehaviour {
 
     private static UICore _instance;
 
+    public bool ShowPath { get; private set; }
+
     // Use this for initialization
-    void Awake () {
+    void Awake() {
         _instance = this;
-	    Load();
-	}
-	
-	// Update is called once per frame
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.X))
-            _container.gameObject.SetActive(!_container.gameObject.activeInHierarchy);
+        Load();
     }
+
+    // Update is called once per frame
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.X)) {
+            _container.gameObject.SetActive(!_container.gameObject.activeInHierarchy);
+        }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Debug.Log("DOWN!");
+            TileManager.GetInstance().UndoUnwalkable();
+            TileManager.GetInstance().SetOneToUnwalkable();
+            AgentManager.GetInstance().TriggerAStar();
+        }
+        TileManager.GetInstance().UpdateColors();
+        foreach (AgentBase agent in AgentManager.GetInstance().Agents) {
+            if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
+                PathFollowingBehaviour behaviour = (PathFollowingBehaviour)agent.Behavior;
+                foreach (Node n in behaviour.GetPath()) {
+                    SpriteRenderer sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
+                    sprites.color = ShowPath ? Color.green : n.Tile.Color;
+                }
+
+            }
+        }
+
+        //
+    }
+
+
 
 
     private void Load() {
@@ -43,7 +69,7 @@ public class UICore : MonoBehaviour {
     }
 
     void OnGUI() {
-        if(_logEnabled)
+        if (_logEnabled)
             GUI.TextArea(new Rect(0, 0, 200, 300), _textLog, 200);
     }
 
@@ -52,16 +78,8 @@ public class UICore : MonoBehaviour {
     }
 
     private void onTogglePath(bool val) {
-        foreach (AgentBase agent in AgentManager.GetInstance().Agents) {
-            if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
-                PathFollowingBehaviour behaviour = (PathFollowingBehaviour) agent.Behavior;
-                foreach (Node n in behaviour.GetPath()) {
-                    SpriteRenderer sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
-                    sprites.color = val ? Color.green : n.Tile.Color;
-                }
+        ShowPath = !ShowPath;
 
-            }
-        } 
     }
 
     private void onToggleLog(bool val) {
@@ -69,7 +87,7 @@ public class UICore : MonoBehaviour {
     }
 
     public void Log(string msg) {
-        _textLog += "- "+msg + "\n";
+        _textLog += "- " + msg + "\n";
     }
 
 }
