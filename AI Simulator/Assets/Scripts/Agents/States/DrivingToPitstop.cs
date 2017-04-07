@@ -29,7 +29,7 @@ namespace Assets.Scripts.Agents.States {
             if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
                 var tempBehaviour = (PathFollowingBehaviour)agent.Behavior;
                 if (tempBehaviour.Finished()) {
-                    Debug.Log("Finished! Change to RepairingState");
+                    UICore.GetInstance().Log(agent.Name + ": I need to repair my ride..");
                     agent.StateMachine.ChangeState(new RepairingVehicle());
                 }
             }

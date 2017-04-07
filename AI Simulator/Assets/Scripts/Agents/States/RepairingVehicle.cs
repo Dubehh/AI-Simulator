@@ -7,7 +7,8 @@ namespace Assets.Scripts.Agents.States {
     class RepairingVehicle : IState{
 
         public void Enter(AgentBase agent) {
-            // log
+            UICore.GetInstance().Log(agent.Name + ": I'm fixing my ride..");
+            UICore.GetInstance().Log(agent.Name + ": My wear is "+agent.Wear);
         }
 
         public void Execute(AgentBase agent) {
@@ -20,7 +21,8 @@ namespace Assets.Scripts.Agents.States {
         }
 
         public void Exit(AgentBase agent) {
-            // log
+            UICore.GetInstance().Log(agent.Name + ": I've repaired my ride!");
+            UICore.GetInstance().Log(agent.Name + ": My wear is now " + agent.Wear);
         }
     }
 }

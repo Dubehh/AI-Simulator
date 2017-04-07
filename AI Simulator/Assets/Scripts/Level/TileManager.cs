@@ -29,7 +29,7 @@ namespace Assets.Scripts.Level {
             UpdateColors();
         }
 
-        private void UpdateColors() {
+        public void UpdateColors() {
             foreach (var tile in OrderedTiles[TileType.Road]) {
                 tile.Object.GetComponent<SpriteRenderer>().color = tile.Color;
                 if (!tile.Walkable) {

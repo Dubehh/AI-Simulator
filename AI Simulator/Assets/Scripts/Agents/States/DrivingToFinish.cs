@@ -17,8 +17,7 @@ namespace Assets.Scripts.Agents.States {
                 if (agent.StateMachine.PreviousState == null || agent.StateMachine.PreviousState.GetType() == typeof(ReachedFinish)) {
 
                     startPosition = new TileLocation(agent.StartedAtTileLocation.X+1, agent.StartedAtTileLocation.Y);
-                }
-                else {
+                } else {
                     startPosition = agent.CurrentTileLocation;
                 }
                 var finishPosition = new TileLocation(agent.StartedAtTileLocation.X - 1, agent.StartedAtTileLocation.Y);
@@ -27,12 +26,15 @@ namespace Assets.Scripts.Agents.States {
             }
             base.Enter(agent);
         }
+
         public override void Execute(AgentBase agent) {
             base.Execute(agent);
             if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
                 var tempBehaviour = (PathFollowingBehaviour)agent.Behavior;
                 if (tempBehaviour.Finished()) {
                     agent.StateMachine.ChangeState(new ReachedFinish());
+                    UICore.GetInstance().Log(agent.Name + ": I finished a lap!");
+                   
                 }
             }
         }

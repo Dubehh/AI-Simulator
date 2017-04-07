@@ -2,11 +2,22 @@
 using System.Linq;
 using Assets.Scripts.Level;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.AStar {
+
     public static class AStar {
+
+
+        /// <summary>
+        /// Calculates the fastest route towards a goal using the manhattan heuristic.
+        /// This is an implementation of the A* algorithm that compares neighbours of nodes
+        /// to see which node is more probable than the other neighbours.
+        /// </summary>
+        /// <param name="start">The location of which the path will start</param>
+        /// <param name="goal">The requested goal location</param>
+        /// <returns>A route with all nodes that will be passed </returns>
         public static Stack<Node> GetPath(TileLocation start, TileLocation goal) {
-            //Debug.Log("Astar.GetPath() start, x:" + start.X + ", y: " + start.Y);
             var _nodes = new Dictionary<TileLocation, Node>();
             foreach (var tile in TileManager.GetInstance().Tiles.Values)
                 _nodes.Add(tile.TileLocation, new Node(tile));
@@ -57,10 +68,7 @@ namespace Assets.Scripts.AStar {
                     break;
                 }
             }
-
-            GameObject.Find("AStarDebugger").GetComponent<AStarDebugger>().DebugPath(finalPath);
             return finalPath;
-
         }
     }
 }

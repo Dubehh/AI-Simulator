@@ -28,6 +28,7 @@ namespace Assets.Scripts.Agents.Behaviours {
                     _currentPoint++;
                     if (_currentPoint + 1 < _path.Count) {
                         Agent.CurrentTileLocation = _path[_currentPoint].Tile.TileLocation;
+
                         target = _path[_currentPoint].Tile.Object.transform.position;
                     }
                 }
@@ -43,10 +44,12 @@ namespace Assets.Scripts.Agents.Behaviours {
             return new AgentTransformation();
         }
 
+        public List<Node> GetPath() {
+            return _path;
+        }
+
 
         public bool Finished() {
-            //Debug.Log(_currentPoint >= _path.Count);
-            //Debug.Log("Current point" + _currentPoint + ", size" + _path.Count);
             return _currentPoint >= _path.Count;
         }
     }
