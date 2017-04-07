@@ -40,11 +40,11 @@ public class UICore : MonoBehaviour {
             AgentManager.GetInstance().TriggerAStar();
         }
         TileManager.GetInstance().UpdateColors();
-        foreach (AgentBase agent in AgentManager.GetInstance().Agents) {
+        foreach (var agent in AgentManager.GetInstance().Agents) {
             if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
-                PathFollowingBehaviour behaviour = (PathFollowingBehaviour)agent.Behavior;
-                foreach (Node n in behaviour.GetPath()) {
-                    SpriteRenderer sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
+                var behaviour = (PathFollowingBehaviour)agent.Behavior;
+                foreach (var n in behaviour.GetPath()) {
+                    var sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
                     sprites.color = ShowPath ? Color.green : n.Tile.Color;
                 }
 
@@ -71,9 +71,6 @@ public class UICore : MonoBehaviour {
 
     void OnGUI() {
         if (_logEnabled) {
-            //scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(100), GUILayout.Height(100));
-            //GUI.TextArea(new Rect(0, 0, 250, 300), _textLog, 2000);
-            //GUILayout.EndScrollView();
             GUILayout.BeginArea(new Rect(0, 0, 250, 300));
             scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(250), GUILayout.Height(300));
             GUILayout.TextField(_textLog, "Label");
