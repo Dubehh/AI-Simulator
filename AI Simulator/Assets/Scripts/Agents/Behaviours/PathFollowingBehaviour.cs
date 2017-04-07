@@ -27,25 +27,24 @@ namespace Assets.Scripts.Agents.Behaviours {
                 if (toTarget.sqrMagnitude < _waypointSeekDistance * _waypointSeekDistance) {
                     Agent.CurrentTileLocation = _path[_currentPoint].Tile.TileLocation;
                     _currentPoint++;
-                    if (_currentPoint + 1 < _path.Count) {
-
+                    if (_currentPoint + 1 < _path.Count) 
                         target = _path[_currentPoint].Tile.Object.transform.position;
-                    }
                 }
                 var seekBehavior = new SeekBehaviour(Agent, target).Calculate();
                 return new AgentTransformation(turnBehavior.Rotation.Value, seekBehavior.Position.Value);
             }
             else {
-                Debug.Log("Set to true!");
                 var target = _path[_currentPoint - 1].Tile.Object.transform.position;
                 return new OwnArriveBehaviour(Agent, target, Deceleration.Normal).Calculate();
             }
         }
 
+        public List<Node> GetPath() {
+            return _path;
+        }
+
 
         public bool Finished() {
-            //Debug.Log(_currentPoint >= _path.Count);
-            //Debug.Log("Current point" + _currentPoint + ", size" + _path.Count);
             return _currentPoint >= _path.Count;
         }
     }
