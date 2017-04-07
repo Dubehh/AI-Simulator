@@ -1,12 +1,6 @@
 ﻿using Assets.Scripts.Agents;
 using Assets.Scripts.Level;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts;
-using Assets.Scripts.Agents;
 using Assets.Scripts.Agents.Behaviours;
-using Assets.Scripts.AStar;
-using Assets.Scripts.Level;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,11 +41,8 @@ public class UICore : MonoBehaviour {
                     var sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
                     sprites.color = ShowPath ? Color.green : n.Tile.Color;
                 }
-
             }
         }
-
-        //
     }
 
 
@@ -71,8 +62,8 @@ public class UICore : MonoBehaviour {
 
     void OnGUI() {
         if (_logEnabled) {
-            GUILayout.BeginArea(new Rect(0, 0, 250, 300));
-            scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(250), GUILayout.Height(300));
+            GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(300), GUILayout.Height(300));
             GUILayout.TextField(_textLog, "Label");
             scrollPosition.y = Mathf.Infinity;
             GUILayout.EndScrollView();
