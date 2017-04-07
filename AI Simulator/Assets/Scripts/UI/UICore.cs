@@ -14,6 +14,7 @@ public class UICore : MonoBehaviour {
 
     private Canvas _canvas;
     private SpriteRenderer _container;
+    public Vector2 scrollPosition;
     private string _textLog;
     private bool _logEnabled;
 
@@ -69,8 +70,17 @@ public class UICore : MonoBehaviour {
     }
 
     void OnGUI() {
-        if (_logEnabled)
-            GUI.TextArea(new Rect(0, 0, 200, 300), _textLog, 200);
+        if (_logEnabled) {
+            //scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(100), GUILayout.Height(100));
+            //GUI.TextArea(new Rect(0, 0, 250, 300), _textLog, 2000);
+            //GUILayout.EndScrollView();
+            GUILayout.BeginArea(new Rect(0, 0, 250, 300));
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(250), GUILayout.Height(300));
+            GUILayout.TextField(_textLog, "Label");
+            scrollPosition.y = Mathf.Infinity;
+            GUILayout.EndScrollView();
+            GUILayout.EndArea();
+        }
     }
 
     public static UICore GetInstance() {
@@ -78,7 +88,7 @@ public class UICore : MonoBehaviour {
     }
 
     private void onTogglePath(bool val) {
-        ShowPath = !ShowPath;
+        ShowPath = val;
 
     }
 
