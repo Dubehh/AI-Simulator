@@ -13,6 +13,7 @@ namespace Assets.Scripts.Level {
         public TileLocation TileLocation { get; set; }
         public bool Walkable { get; set; }
         public TileType Type { get; set; }
+        public readonly Color Color;
 
         public Tile(string spritename, string extension = "png", bool walkable = false) {
             Walkable = walkable;
@@ -20,6 +21,7 @@ namespace Assets.Scripts.Level {
             Object = new GameObject();
             SpriteRenderer renderer = Object.AddComponent<SpriteRenderer>();
             renderer.sprite = Sprite;
+            Color = renderer.color;
         }
 
         public void Rotate(float degrees) {
