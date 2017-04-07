@@ -21,7 +21,8 @@ namespace Assets.Scripts.Agents {
         public float Wear { get; set; }
         public readonly float MinSpeed = 0.5f;
         public readonly float MaxSpeed;
-
+        public string Name { get; private set; }
+        
         public AgentBehaviourBase Behavior { get; set; }
         public StateMachine StateMachine { get; set; }
         
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Agents {
             Speed = maxSpeed;
             _fileName = filename;
             ID = _agents;
+            Name = "Agent " + ID;
             _agents++;
             StateMachine = new StateMachine(this);
            
