@@ -19,12 +19,17 @@ namespace Assets.Scripts.Agents {
         public readonly float WearDamage;
         public int ID { get; private set; }
         public float Wear { get; set; }
-        public readonly float MinSpeed = 0.5f;
+        public readonly float MinSpeed = 2f;
         public readonly float MaxSpeed;
 
         public AgentBehaviourBase Behavior { get; set; }
         public StateMachine StateMachine { get; set; }
-        
+        public float Speed {
+            get { return _speed * Time.deltaTime; }
+            set { _speed = value; }
+        }
+        public int FinishedLaps { get; internal set; }
+
         protected AgentBase(string filename) : this(filename, 1.0f, 1.0f) {}
         protected AgentBase(string filename, float dmg, float maxSpeed) {
             WearDamage = dmg;
@@ -36,10 +41,6 @@ namespace Assets.Scripts.Agents {
             StateMachine = new StateMachine(this);
            
 
-        }
-        public float Speed {
-            get { return _speed * Time.deltaTime; }
-            set { _speed = value; }
         }
 
         public void Initialize() {

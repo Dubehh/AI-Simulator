@@ -17,7 +17,7 @@ namespace Assets.Scripts.Agents.States {
 
         public virtual void Enter(AgentBase agent) {
             Stack<Node> path = AStar.AStar.GetPath(Start, Target);
-            agent.Behavior = new PathFollowingBehaviour(path.ToList(),0.5f, agent);
+            agent.Behavior = new PathFollowingBehaviour(path.ToList(), 2.0f, agent);
         }
 
         public virtual void Execute(AgentBase agent) {

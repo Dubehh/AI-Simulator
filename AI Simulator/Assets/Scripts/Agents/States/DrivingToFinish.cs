@@ -14,7 +14,7 @@ namespace Assets.Scripts.Agents.States {
             TileLocation startPosition;
 
             if (startDrivingTo == Direction.Right) {
-                if (agent.StateMachine.PreviousState == null || agent.StateMachine.PreviousState.GetType() == typeof(DrivingToFinish)) {
+                if (agent.StateMachine.PreviousState == null || agent.StateMachine.PreviousState.GetType() == typeof(ReachedFinish)) {
 
                     startPosition = new TileLocation(agent.StartedAtTileLocation.X+1, agent.StartedAtTileLocation.Y);
                 }
@@ -30,17 +30,9 @@ namespace Assets.Scripts.Agents.States {
         public override void Execute(AgentBase agent) {
             base.Execute(agent);
             if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
-                //Debug.Log("TYPE == PathFollowingBehaviour");
                 var tempBehaviour = (PathFollowingBehaviour)agent.Behavior;
                 if (tempBehaviour.Finished()) {
-                    Debug.Log("IS FINISHED!, wear of the agent is now: "+ agent.Wear);
-                    if (agent.Wear < 60) {
-                        // Here has to come logic if wear is lower than x
-                        agent.StateMachine.ChangeState(new DrivingToFinish());
-                    }
-                    else {
-                        agent.StateMachine.ChangeState(new DrivingToPitstop());
-                    }
+                    agent.StateMachine.ChangeState(new ReachedFinish());
                 }
             }
         }

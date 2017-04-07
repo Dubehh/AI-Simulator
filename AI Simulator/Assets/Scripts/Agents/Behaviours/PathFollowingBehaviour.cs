@@ -25,10 +25,9 @@ namespace Assets.Scripts.Agents.Behaviours {
                 var target = _path[_currentPoint].Tile.Object.transform.position;
                 var toTarget = target - Agent.Object.transform.position;
                 if (toTarget.sqrMagnitude < _waypointSeekDistance * _waypointSeekDistance) {
-                    Agent.CurrentTileLocation = _path[_currentPoint].Tile.TileLocation;
                     _currentPoint++;
                     if (_currentPoint + 1 < _path.Count) {
-
+                        Agent.CurrentTileLocation = _path[_currentPoint].Tile.TileLocation;
                         target = _path[_currentPoint].Tile.Object.transform.position;
                     }
                 }
@@ -36,10 +35,12 @@ namespace Assets.Scripts.Agents.Behaviours {
                 return new AgentTransformation(turnBehavior.Rotation.Value, seekBehavior.Position.Value);
             }
             else {
-                Debug.Log("Set to true!");
-                var target = _path[_currentPoint - 1].Tile.Object.transform.position;
-                return new OwnArriveBehaviour(Agent, target, Deceleration.Normal).Calculate();
+                if (_currentPoint > 0) {
+                    var target = _path[_currentPoint - 1].Tile.Object.transform.position;
+                    return new OwnArriveBehaviour(Agent, target, Deceleration.Normal).Calculate();
+                }
             }
+            return new AgentTransformation();
         }
 
 

@@ -9,11 +9,18 @@ namespace Assets.Scripts.Agents.States {
         private System.Random _rand = new System.Random();
 
         public override void Enter(AgentBase agent) {
+            TileLocation startPosition;
 
-            var startFromPosition = agent.StartedAtTileLocation;
-            var finishPosition = new TileLocation(14, 6);
+            if (agent.StateMachine.PreviousState.GetType() == typeof(ReachedFinish)) {
+
+                startPosition = new TileLocation(agent.StartedAtTileLocation.X + 1, agent.StartedAtTileLocation.Y);
+            }
+            else {
+                startPosition = agent.CurrentTileLocation;
+            }
+            var finishPosition = TileManager.GetInstance().OrderedTiles[TileType.Repair].FirstOrDefault().TileLocation;
             Target = finishPosition;
-            Start = new TileLocation(startFromPosition.X+1, startFromPosition.Y);
+            Start = startPosition;
 
             base.Enter(agent);
         }

@@ -21,6 +21,10 @@ namespace Assets.Scripts.Agents.States {
             newState.Enter(_entity);
         }
 
+        public void ReenterState() {
+            CurrentState.Enter(_entity);
+        }
+
         public void Update() {
             if (CurrentState != null) {
                 CurrentState.Execute(_entity);

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Agents;
+using Assets.Scripts.Level;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +19,12 @@ public class UICore : MonoBehaviour {
 	    if (Input.GetKeyDown(KeyCode.X)) {
 	        _container.gameObject.SetActive(!_container.gameObject.activeInHierarchy);
 	    }
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            Debug.Log("DOWN!");
+            TileManager.GetInstance().UndoUnwalkable();
+            TileManager.GetInstance().SetOneToUnwalkable();
+            AgentManager.GetInstance().TriggerAStar();
+        }
 	}
 
     void onValueChanged(bool val) {
