@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Scripts.Agents {
+namespace Assets.Scripts.Agents.Behaviours {
     public abstract class AgentBehaviourBase {
 
         protected AgentBase Agent { get; private set; }

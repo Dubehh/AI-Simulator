@@ -6,8 +6,6 @@ using UnityEngine;
 namespace Assets.Scripts.Agents.States {
     public class DrivingToFinish : DrivingStateBase {
 
-        private System.Random _rand = new System.Random();
-
         public override void Enter(AgentBase agent) {
             var startDrivingTo = Settings.StartFromFinish;
 

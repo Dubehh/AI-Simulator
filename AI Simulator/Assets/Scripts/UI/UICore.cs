@@ -39,7 +39,7 @@ public class UICore : MonoBehaviour {
                 var behaviour = (PathFollowingBehaviour)agent.Behavior;
                 foreach (var n in behaviour.GetPath()) {
                     var sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
-                    sprites.color = ShowPath ? Color.green : n.Tile.Color;
+                    sprites.color = ShowPath ? Color.cyan : n.Tile.Color;
                 }
             }
         }

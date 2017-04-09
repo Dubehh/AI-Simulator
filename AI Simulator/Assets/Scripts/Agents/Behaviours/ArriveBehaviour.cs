@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Assets.Scripts.Agents.Behaviours;
 using UnityEngine;
 
 namespace Assets.Scripts.Agents.Behaviors {
@@ -11,11 +8,11 @@ namespace Assets.Scripts.Agents.Behaviors {
         Fast = 1
     }
 
-    public class OwnArriveBehaviour : AgentBehaviourBase {
+    public class ArriveBehaviour : AgentBehaviourBase {
         private readonly Vector3 _target;
         private readonly Deceleration _deceleration;
 
-        public OwnArriveBehaviour(AgentBase agent, Vector3 target, Deceleration deceleration) : base(agent) {
+        public ArriveBehaviour(AgentBase agent, Vector3 target, Deceleration deceleration) : base(agent) {
             _target = target;
             _deceleration = deceleration;
         }

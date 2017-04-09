@@ -7,7 +7,11 @@ namespace Assets.Scripts.Agents.Behaviours {
         public TurnBehaviour(AgentBase agent, Vector3 seekTarget) : base(agent) {
             _seekTarget = seekTarget;
         }
-
+        /// <summary>
+        /// This calculate will calculate what the next rotation value of the agent will be
+        /// through the current position of the agent and the target position.
+        /// </summary>
+        /// <returns>AgentTransformation</returns>
         public override AgentTransformation Calculate() {
             var dir = _seekTarget - Agent.Object.transform.position;
             var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

@@ -31,8 +31,8 @@ namespace Assets.Scripts.AStar {
             while (openList.Count > 0) {
                 for (var x = -1; x <= 1; x++) {
                     for (var y = -1; y <= 1; y++) {
+                        // Disallow diagonally walking
                         if (!(x == -1 && (y == -1 || y == 1) || x == 1 && (y == -1 || y == 1))) {
-                            // Disallow diagonally walking
                             var neighborPos = new TileLocation(currentNode.GridPosition.X - x, currentNode.GridPosition.Y - y);
                             if (TileManager.GetInstance().InBounds(neighborPos)
                                 && TileManager.GetInstance().Tiles[neighborPos].Type != TileType.Finish

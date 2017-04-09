@@ -23,13 +23,14 @@ namespace Assets.Scripts.Level {
             renderer.sprite = Sprite;
             Color = renderer.color;
         }
+        public Tile(TileType type, bool walkable = false)
+           : this("tile_" + Enum.GetName(typeof(TileType), type).ToLower(), "png", walkable) { }
 
         public void Rotate(float degrees) {
             Object.transform.rotation = Quaternion.Euler(new Vector3(0, 0, degrees));
         }
 
-        public Tile(TileType type, bool walkable = false)
-            : this("tile_" + Enum.GetName(typeof(TileType), type).ToLower(), "png", walkable) { }
+       
 
     }
 }
