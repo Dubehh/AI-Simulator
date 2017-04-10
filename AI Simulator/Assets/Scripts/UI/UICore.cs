@@ -1,12 +1,6 @@
 ﻿using Assets.Scripts.Agents;
 using Assets.Scripts.Level;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts;
-using Assets.Scripts.Agents;
 using Assets.Scripts.Agents.Behaviours;
-using Assets.Scripts.AStar;
-using Assets.Scripts.Level;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +8,7 @@ public class UICore : MonoBehaviour {
 
     private Canvas _canvas;
     private SpriteRenderer _container;
+    public Vector2 scrollPosition;
     private string _textLog;
     private bool _logEnabled;
 
@@ -39,18 +34,15 @@ public class UICore : MonoBehaviour {
             AgentManager.GetInstance().TriggerAStar();
         }
         TileManager.GetInstance().UpdateColors();
-        foreach (AgentBase agent in AgentManager.GetInstance().Agents) {
+        foreach (var agent in AgentManager.GetInstance().Agents) {
             if (agent.Behavior.GetType() == typeof(PathFollowingBehaviour)) {
-                PathFollowingBehaviour behaviour = (PathFollowingBehaviour)agent.Behavior;
-                foreach (Node n in behaviour.GetPath()) {
-                    SpriteRenderer sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
-                    sprites.color = ShowPath ? Color.green : n.Tile.Color;
+                var behaviour = (PathFollowingBehaviour)agent.Behavior;
+                foreach (var n in behaviour.GetPath()) {
+                    var sprites = n.Tile.Object.GetComponent<SpriteRenderer>();
+                    sprites.color = ShowPath ? Color.cyan : n.Tile.Color;
                 }
-
             }
         }
-
-        //
     }
 
 
@@ -69,8 +61,14 @@ public class UICore : MonoBehaviour {
     }
 
     void OnGUI() {
-        if (_logEnabled)
-            GUI.TextArea(new Rect(0, 0, 200, 300), _textLog, 200);
+        if (_logEnabled) {
+            GUILayout.BeginArea(new Rect(10, 10, 300, 300));
+            scrollPosition = GUILayout.BeginScrollView(scrollPosition, GUILayout.Width(300), GUILayout.Height(300));
+            GUILayout.TextField(_textLog, "Label");
+            scrollPosition.y = Mathf.Infinity;
+            GUILayout.EndScrollView();
+            GUILayout.EndArea();
+        }
     }
 
     public static UICore GetInstance() {
@@ -78,7 +76,7 @@ public class UICore : MonoBehaviour {
     }
 
     private void onTogglePath(bool val) {
-        ShowPath = !ShowPath;
+        ShowPath = val;
 
     }
 

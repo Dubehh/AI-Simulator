@@ -13,7 +13,6 @@ namespace Assets.Scripts.Agents.States {
         public TileLocation Start { get; set; }
 
         public TileLocation Target { get; set; }
-        protected DrivingStateBase() {}
 
         public virtual void Enter(AgentBase agent) {
             Stack<Node> path = AStar.AStar.GetPath(Start, Target);

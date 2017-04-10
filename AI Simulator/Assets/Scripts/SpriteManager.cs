@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using UnityEditor;
+﻿using System.Collections.Generic;
+//using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts {
@@ -14,7 +11,7 @@ namespace Assets.Scripts {
 
         private SpriteManager() {
             _spriteRegister = new Dictionary<string, Sprite>();
-            _spritePath = "Assets/Sprites/";
+            _spritePath = "Sprites/";
         }
 
         public static SpriteManager GetInstance() {
@@ -23,8 +20,10 @@ namespace Assets.Scripts {
 
         public Sprite GetSprite(string name, string extension) {
             if (!_spriteRegister.ContainsKey(name)) {
-                var obj = AssetDatabase.LoadAssetAtPath(_spritePath + name + "." + extension, typeof(Sprite));
-                _spriteRegister[name] = (Sprite)obj;
+                //var obj = AssetDatabase.LoadAssetAtPath(_spritePath + name + "." + extension, typeof(Sprite));
+                Debug.Log(name);
+                var obj = Resources.Load<Sprite>(_spritePath + name);
+                _spriteRegister[name] = obj;
             }
             return _spriteRegister[name];
         }

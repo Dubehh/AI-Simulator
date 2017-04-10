@@ -4,6 +4,7 @@ using System.Text;
 using Assets.Scripts.Level;
 using UnityEngine;
 using Assets.Scripts.Agents.States;
+using Assets.Scripts.Agents.Behaviours;
 
 namespace Assets.Scripts.Agents {
 
@@ -55,7 +56,6 @@ namespace Assets.Scripts.Agents {
             /* Setup components */
             SpriteRenderer renderer = Object.AddComponent<SpriteRenderer>();
             Rigidbody2D body = Object.AddComponent<Rigidbody2D>();
-
             /* Assign default values */
             body.gravityScale = 0;
             renderer.sprite = Sprite;
